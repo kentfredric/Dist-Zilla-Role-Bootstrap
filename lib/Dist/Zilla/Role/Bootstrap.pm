@@ -20,6 +20,31 @@ use MooseX::AttributeShortcuts;
 
 =cut
 
+=head1 SYNOPSIS
+
+For consuming plugins:
+
+    use Moose;
+    with 'Dist::Zilla::Role::Bootstrap';
+
+    sub bootstrap {
+        my $bootstrap_root = $_[0]->_bootstrap_root;
+        # Do the actual bootstrap work here
+        $_[0]->_add_inc('./some/path/here');
+    }
+
+For users of plugins:
+
+    [Some::Plugin::Name]
+    try_built = 0 ; # use / as the root to bootstrap
+    try_built = 1 ; # try to use /Dist-Name-.*/ instead of /
+
+    fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
+    fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
+   
+
+=cut
+
 with 'Dist::Zilla::Role::Plugin';
 
 around 'dump_config' => sub {
@@ -39,7 +64,15 @@ around 'dump_config' => sub {
   return $config;
 };
 
-has distname => ( is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+=attr C<distname>
+
+=cut
+
+has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+
+=p_attr C<_cwd>
+
+=cut
 
 has _cwd => (
   is      => ro =>,
@@ -56,6 +89,7 @@ has _cwd => (
 =cut
 
 has try_built => (
+  isa     => 'Bool',
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return },
@@ -66,6 +100,7 @@ has try_built => (
 =cut
 
 has fallback => (
+  isa     => 'Bool',
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return 1 },
@@ -101,6 +136,10 @@ has _bootstrap_root => (
   },
 );
 
+=p_method C<_add_inc>
+
+=cut
+
 sub _add_inc {
   my ( $self, $import ) = @_;
   if ( not ref $import ) {
@@ -109,6 +148,10 @@ sub _add_inc {
   }
   die "At this time, _add_inc(arg) only supports scalar values of arg";
 }
+
+=requires C<bootstrap>
+
+=cut
 
 requires 'bootstrap';
 
