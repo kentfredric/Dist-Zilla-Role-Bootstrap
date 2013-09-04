@@ -1,6 +1,6 @@
 # NAME
 
-Dist::Zilla::Role::Bootstrap - Shared logic for boostrap things.
+Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 # VERSION
 

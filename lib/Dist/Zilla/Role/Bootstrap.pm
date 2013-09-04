@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Role::Bootstrap;
 
-# ABSTRACT: Shared logic for boostrap things.
+# ABSTRACT: Shared logic for bootstrap things.
 
 use Moose::Role;
 use MooseX::AttributeShortcuts;
@@ -90,7 +90,7 @@ has _cwd => (
 
 has try_built => (
   isa     => 'Bool',
-  is      => ro  =>,
+  is      => ro =>,
   lazy    => 1,
   builder => sub { return },
 );
@@ -101,7 +101,7 @@ has try_built => (
 
 has fallback => (
   isa     => 'Bool',
-  is      => ro  =>,
+  is      => ro =>,
   lazy    => 1,
   builder => sub { return 1 },
 );
@@ -146,7 +146,8 @@ sub _add_inc {
     require lib;
     return lib->import($import);
   }
-  die "At this time, _add_inc(arg) only supports scalar values of arg";
+  require Carp;
+  return Carp::croak('At this time, _add_inc(arg) only supports scalar values of arg');
 }
 
 =requires C<bootstrap>
