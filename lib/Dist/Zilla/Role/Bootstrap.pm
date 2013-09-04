@@ -52,7 +52,7 @@ has _cwd => (
 
 has try_built => (
   isa     => 'Bool',
-  is      => ro  =>,
+  is      => ro =>,
   lazy    => 1,
   builder => sub { return },
 );
@@ -60,7 +60,7 @@ has try_built => (
 
 has fallback => (
   isa     => 'Bool',
-  is      => ro  =>,
+  is      => ro =>,
   lazy    => 1,
   builder => sub { return 1 },
 );
