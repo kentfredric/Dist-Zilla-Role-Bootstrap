@@ -102,12 +102,12 @@ has _bootstrap_root => (
 );
 
 sub _add_inc {
-    my ( $self, $import ) = @_;
-    if ( not ref $import ) {
-        require lib;
-        return lib->import($import);
-    }
-    die "At this time, _add_inc(arg) only supports scalar values of arg";
+  my ( $self, $import ) = @_;
+  if ( not ref $import ) {
+    require lib;
+    return lib->import($import);
+  }
+  die "At this time, _add_inc(arg) only supports scalar values of arg";
 }
 
 requires 'bootstrap';
