@@ -9,7 +9,7 @@ BEGIN {
   $Dist::Zilla::Role::Bootstrap::VERSION = '0.1.0';
 }
 
-# ABSTRACT: Shared logic for boostrap things.
+# ABSTRACT: Shared logic for bootstrap things.
 
 use Moose::Role;
 use MooseX::AttributeShortcuts;
@@ -99,7 +99,8 @@ sub _add_inc {
     require lib;
     return lib->import($import);
   }
-  die "At this time, _add_inc(arg) only supports scalar values of arg";
+  require Carp;
+  return Carp::croak('At this time, _add_inc(arg) only supports scalar values of arg');
 }
 
 
@@ -127,7 +128,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::Bootstrap - Shared logic for boostrap things.
+Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 

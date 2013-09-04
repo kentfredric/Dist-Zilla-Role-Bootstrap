@@ -1,5 +1,5 @@
 {
-   "abstract" : "Shared logic for boostrap things.",
+   "abstract" : "Shared logic for bootstrap things.",
    "author" : [
       "Kent Fredric <kentfredric@gmail.com>"
    ],
@@ -44,6 +44,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Carp" : "0",
             "Cwd" : "0",
             "Dist::Zilla::Role::Plugin" : "0",
             "Moose::Role" : "0",
@@ -90,6 +91,7 @@
    "version" : "0.1.0",
    "x_BuiltWith" : {
       "modules" : {
+         "Carp" : "1.29",
          "Cwd" : "3.40",
          "Dist::Zilla::Chrome::Test" : "4.300037",
          "Dist::Zilla::Dist::Builder" : "4.300037",

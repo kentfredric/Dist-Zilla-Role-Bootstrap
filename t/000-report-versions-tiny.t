@@ -48,6 +48,7 @@ sub pmver {
     return sprintf('%-45s => %-10s%-15s%s', $module, $pmver, $wanted, "\n");
 }
 
+eval { $v .= pmver('Carp','any version') };
 eval { $v .= pmver('Cwd','any version') };
 eval { $v .= pmver('Dist::Zilla::Chrome::Test','any version') };
 eval { $v .= pmver('Dist::Zilla::Dist::Builder','any version') };

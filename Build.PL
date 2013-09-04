@@ -12,7 +12,7 @@ my %module_build_args = (
   "configure_requires" => {
     "Module::Build" => "0.4007"
   },
-  "dist_abstract" => "Shared logic for boostrap things.",
+  "dist_abstract" => "Shared logic for bootstrap things.",
   "dist_author" => [
     "Kent Fredric <kentfredric\@gmail.com>"
   ],
@@ -23,6 +23,7 @@ my %module_build_args = (
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
+    "Carp" => 0,
     "Cwd" => 0,
     "Dist::Zilla::Role::Plugin" => 0,
     "Moose::Role" => 0,
