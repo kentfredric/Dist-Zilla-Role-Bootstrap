@@ -1,0 +1,21 @@
+NAME
+    Dist::Zilla::Role::Bootstrap - Shared logic for boostrap things.
+
+VERSION
+    version 0.1.0
+
+ATTRIBUTES
+  "try_built"
+  "fallback"
+PRIVATE ATTRIBUTES
+  "_bootstrap_root"
+AUTHOR
+    Kent Fredric <kentfredric@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Kent Fredric
+    <kentfredric@gmail.com>.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
