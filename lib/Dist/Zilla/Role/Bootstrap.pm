@@ -15,6 +15,7 @@ use Moose::Role;
 use MooseX::AttributeShortcuts;
 
 
+
 with 'Dist::Zilla::Role::Plugin';
 
 around 'dump_config' => sub {
@@ -34,7 +35,9 @@ around 'dump_config' => sub {
   return $config;
 };
 
-has distname => ( is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+
+has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+
 
 has _cwd => (
   is      => ro =>,
@@ -48,6 +51,7 @@ has _cwd => (
 
 
 has try_built => (
+  isa     => 'Bool',
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return },
@@ -55,6 +59,7 @@ has try_built => (
 
 
 has fallback => (
+  isa     => 'Bool',
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return 1 },
@@ -87,6 +92,7 @@ has _bootstrap_root => (
   },
 );
 
+
 sub _add_inc {
   my ( $self, $import ) = @_;
   if ( not ref $import ) {
@@ -95,6 +101,7 @@ sub _add_inc {
   }
   die "At this time, _add_inc(arg) only supports scalar values of arg";
 }
+
 
 requires 'bootstrap';
 
@@ -126,7 +133,35 @@ Dist::Zilla::Role::Bootstrap - Shared logic for boostrap things.
 
 version 0.1.0
 
+=head1 SYNOPSIS
+
+For consuming plugins:
+
+    use Moose;
+    with 'Dist::Zilla::Role::Bootstrap';
+
+    sub bootstrap {
+        my $bootstrap_root = $_[0]->_bootstrap_root;
+        # Do the actual bootstrap work here
+        $_[0]->_add_inc('./some/path/here');
+    }
+
+For users of plugins:
+
+    [Some::Plugin::Name]
+    try_built = 0 ; # use / as the root to bootstrap
+    try_built = 1 ; # try to use /Dist-Name-.*/ instead of /
+
+    fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
+    fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
+
+=head1 REQUIRED METHODS
+
+=head2 C<bootstrap>
+
 =head1 ATTRIBUTES
+
+=head2 C<distname>
 
 =head2 C<try_built>
 
@@ -134,7 +169,13 @@ version 0.1.0
 
 =head1 PRIVATE ATTRIBUTES
 
+=head2 C<_cwd>
+
 =head2 C<_bootstrap_root>
+
+=head1 PRIVATE METHODS
+
+=head2 C<_add_inc>
 
 =begin MetaPOD::JSON v1.1.0
 
