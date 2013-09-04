@@ -1,0 +1,48 @@
+NAME
+    Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
+
+VERSION
+    version 0.1.0
+
+SYNOPSIS
+    For consuming plugins:
+
+        use Moose;
+        with 'Dist::Zilla::Role::Bootstrap';
+
+        sub bootstrap {
+            my $bootstrap_root = $_[0]->_bootstrap_root;
+            # Do the actual bootstrap work here
+            $_[0]->_add_inc('./some/path/here');
+        }
+
+    For users of plugins:
+
+        [Some::Plugin::Name]
+        try_built = 0 ; # use / as the root to bootstrap
+        try_built = 1 ; # try to use /Dist-Name-.*/ instead of /
+
+        fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
+        fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
+
+REQUIRED METHODS
+  "bootstrap"
+ATTRIBUTES
+  "distname"
+  "try_built"
+  "fallback"
+PRIVATE ATTRIBUTES
+  "_cwd"
+  "_bootstrap_root"
+PRIVATE METHODS
+  "_add_inc"
+AUTHOR
+    Kent Fredric <kentfredric@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Kent Fredric
+    <kentfredric@gmail.com>.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
