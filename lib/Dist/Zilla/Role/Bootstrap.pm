@@ -22,14 +22,14 @@ sub _max_by(&@) {
   no warnings 'redefine';
   require List::UtilsBy;
   *_max_by = \&List::UtilsBy::max_by;
-  goto List::UtilsBy::max_by;
+  goto &List::UtilsBy::max_by;
 }
 
 sub _nmax_by(&@) {
   no warnings 'redefine';
   require List::UtilsBy;
   *_nmax_by = \&List::UtilsBy::nmax_by;
-  goto List::UtilsBy::nmax_by;
+  goto &List::UtilsBy::nmax_by;
 }
 
 around 'dump_config' => sub {
