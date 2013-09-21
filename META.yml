@@ -27,7 +27,7 @@ name: Dist-Zilla-Role-Bootstrap
 provides:
   Dist::Zilla::Role::Bootstrap:
     file: lib/Dist/Zilla/Role/Bootstrap.pm
-    version: v0.2.0
+    version: v0.1.1
 requires:
   Carp: 0
   Cwd: 0
@@ -45,7 +45,7 @@ resources:
   bugtracker: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap/issues
   homepage: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap
   repository: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap.git
-version: 0.2.0
+version: 0.1.1
 x_BuiltWith:
   modules:
     Carp: 1.32
