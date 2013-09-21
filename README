@@ -2,7 +2,7 @@ NAME
     Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 VERSION
-    version 0.1.1
+    version 0.1.2
 
 SYNOPSIS
     For consuming plugins:
