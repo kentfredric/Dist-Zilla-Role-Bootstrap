@@ -32,15 +32,52 @@ For users of plugins:
 
 ## `bootstrap`
 
+Any user specified `bootstrap` method will be invoked during `plugin_from_config`.
+
+This is __AFTER__ `->new`, __AFTER__ `->BUILD`, and __AFTER__ `dzil`'s internal `plugin_from_config` steps.
+
+This occurs within the `register_component` phase of the plug-in loading and configuration.
+
+This also occurs __BEFORE__ `Dist::Zilla` attaches the plug-in into the plug-in stash.
+
 # ATTRIBUTES
 
 ## `distname`
 
+The name of the distribution.
+
+This value is vivified by asking `zilla->name`.
+
+Usually this value is populated by `dist.ini` in the property `name`
+
+However, occasionally, this value is discovered by a `plugin`.
+
+In such a case, that plugin cannot be bootstrapped, because that plugin __MUST__ be loaded prior to bootstrap.
+
 ## `try_built`
+
+This attribute controls how the consuming `plugin` behaves.
+
+- false __(default)__ : bootstrapping is only done to `PROJECTROOT/lib`
+- true : bootstrap attempts to try `PROJECTROOT/<distname>-<version>/lib`
 
 ## `fallback`
 
+This attribute is for use in conjunction with `try_built`
+
+- `false` : When `PROJECTROOT/<distname>-<version>` does not exist, don't perform any bootstrapping
+- `true` __(default)__ : When `PROJECTROOT/<distname>-<version>` does not exist, bootstrap to `PROJECTROOT/lib`
+
 ## `try_built_method`
+
+This attribute controls how `try_built` behaves when multiple directories exist that match `PROJECTROOT/<distname>-.*`
+
+Two valid options at this time:
+
+- `mtime` __(default)__ : Pick the directory with the most recent `mtime`
+- `parseversion` : Attempt to parse versions on all candidate directories and use the one with the largest version.
+
+Prior to `0.2.0` this property did not exist, and default behaviour was to assume `0 Candidates` and `2 or more Candidates` were the same problem.
 
 # PRIVATE ATTRIBUTES
 
@@ -48,17 +85,55 @@ For users of plugins:
 
 ## `_bootstrap_root`
 
+Internal: This is the real legwork, and resolves the base directory using the bootstrap resolution protocol.
+
+It should always return a project root of some kind, whether it be a source tree, or built source tree.
+
+It can also return `undef` if discovery concludes that no bootstrap can or should be performed.
+
 # PRIVATE METHODS
 
 ## `_pick_latest_mtime`
 
+"Latest" `mtime` candidate selector
+
+    my $directory = $self->_pick_latest_mtime(@directory_objects)
+
 ## `_get_candidate_version`
+
+Attempt to resolve a version from a directory name
+
+    my $version = $self->_get_candidate_version($directory_object)
+
+__NOTE:__ At this time, the presence of `-TRIAL` is simply stripped and ignored
 
 ## `_pick_latest_parseversion`
 
+"Latest" `version` candidate selector
+
+    my $directory = $self->_pick_latest_parseversion(@directory_objects)
+
 ## `_pick_candidate`
 
+Pick a directory from a list of candidates using the method described by `try_built_method`
+
+    my $directory = $self->_pick_candidate( @directory_objects );
+
 ## `_add_inc`
+
+Internal: Used to perform the final step of injecting library paths into `@INC`
+
+    $self->_add_inc("$libraryPath");
+
+# PRIVATE FUNCTIONS
+
+## `_max_by`
+
+Proxy for [`List::UtilsBy::__max\_by__`](http://search.cpan.org/perldoc?List::UtilsBy#max\_by)
+
+## `_nmax_by`
+
+Proxy for [`List::UtilsBy::__nmax\_by__`](http://search.cpan.org/perldoc?List::UtilsBy#nmax\_by)
 
 {
     "namespace":"Dist::Zilla::Role::Bootstrap",

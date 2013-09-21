@@ -41,11 +41,17 @@ For users of plugins:
 
     fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
     fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
-   
+
 
 =cut
 
 with 'Dist::Zilla::Role::Plugin';
+
+=p_func C<_max_by>
+
+Proxy for L<< C<List::UtilsBy::B<max_by>>|List::UtilsBy/max_by >>
+
+=cut
 
 sub _max_by(&@) {
   no warnings 'redefine';
@@ -53,6 +59,12 @@ sub _max_by(&@) {
   *_max_by = \&List::UtilsBy::max_by;
   goto &List::UtilsBy::max_by;
 }
+
+=p_func C<_nmax_by>
+
+Proxy for L<< C<List::UtilsBy::B<nmax_by>>|List::UtilsBy/nmax_by >>
+
+=cut
 
 sub _nmax_by(&@) {
   no warnings 'redefine';
@@ -80,6 +92,16 @@ around 'dump_config' => sub {
 
 =attr C<distname>
 
+The name of the distribution.
+
+This value is vivified by asking C<< zilla->name >>.
+
+Usually this value is populated by C<dist.ini> in the property C<name>
+
+However, occasionally, this value is discovered by a C<plugin>.
+
+In such a case, that plugin cannot be bootstrapped, because that plugin B<MUST> be loaded prior to bootstrap.
+
 =cut
 
 has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
@@ -100,6 +122,17 @@ has _cwd => (
 
 =attr C<try_built>
 
+This attribute controls how the consuming C<plugin> behaves.
+
+=over 4
+
+=item * false B<(default)> : bootstrapping is only done to C<PROJECTROOT/lib>
+
+=item * true : bootstrap attempts to try C<< PROJECTROOT/<distname>-<version>/lib >>
+
+=back
+
+
 =cut
 
 has try_built => (
@@ -110,6 +143,16 @@ has try_built => (
 );
 
 =attr C<fallback>
+
+This attribute is for use in conjunction with C<try_built>
+
+=over 4
+
+=item * C<false> : When C<< PROJECTROOT/<distname>-<version> >> does not exist, don't perform any bootstrapping
+
+=item * C<true> B<(default)> : When C<< PROJECTROOT/<distname>-<version> >> does not exist, bootstrap to C<< PROJECTROOT/lib >>
+
+=back
 
 =cut
 
@@ -122,16 +165,34 @@ has fallback => (
 
 =attr C<try_built_method>
 
+This attribute controls how C<try_built> behaves when multiple directories exist that match C<< PROJECTROOT/<distname>-.* >>
+
+Two valid options at this time:
+
+=over 4
+
+=item * C<mtime> B<(default)> : Pick the directory with the most recent C<mtime>
+
+=item * C<parseversion> : Attempt to parse versions on all candidate directories and use the one with the largest version.
+
+=back
+
+Prior to C<0.2.0> this property did not exist, and default behaviour was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
+
 =cut
 
 has try_built_method => (
   isa     => 'Str',
   is      => ro =>,
   lazy    => 1,
-  builder => sub { return 'mtime' }
+  builder => sub { return 'mtime' },
 );
 
 =p_method C<_pick_latest_mtime>
+
+"Latest" C<mtime> candidate selector
+
+    my $directory = $self->_pick_latest_mtime(@directory_objects)
 
 =cut
 
@@ -141,6 +202,12 @@ sub _pick_latest_mtime {
 }
 
 =p_method C<_get_candidate_version>
+
+Attempt to resolve a version from a directory name
+
+    my $version = $self->_get_candidate_version($directory_object)
+
+B<NOTE:> At this time, the presence of C<-TRIAL> is simply stripped and ignored
 
 =cut
 
@@ -157,6 +224,10 @@ sub _get_candidate_version {
 
 =p_method C<_pick_latest_parseversion>
 
+"Latest" C<version> candidate selector
+
+    my $directory = $self->_pick_latest_parseversion(@directory_objects)
+
 =cut
 
 sub _pick_latest_parseversion {
@@ -170,6 +241,10 @@ my (%methods) = (
 );
 
 =p_method C<_pick_candidate>
+
+Pick a directory from a list of candidates using the method described by C<try_built_method>
+
+    my $directory = $self->_pick_candidate( @directory_objects );
 
 =cut
 
@@ -185,6 +260,12 @@ sub _pick_candidate {
 }
 
 =p_attr C<_bootstrap_root>
+
+Internal: This is the real legwork, and resolves the base directory using the bootstrap resolution protocol.
+
+It should always return a project root of some kind, whether it be a source tree, or built source tree.
+
+It can also return C<undef> if discovery concludes that no bootstrap can or should be performed.
 
 =cut
 
@@ -222,6 +303,10 @@ has _bootstrap_root => (
 
 =p_method C<_add_inc>
 
+Internal: Used to perform the final step of injecting library paths into C<@INC>
+
+    $self->_add_inc("$libraryPath");
+
 =cut
 
 sub _add_inc {
@@ -235,6 +320,14 @@ sub _add_inc {
 }
 
 =requires C<bootstrap>
+
+Any user specified C<bootstrap> method will be invoked during C<plugin_from_config>.
+
+This is B<AFTER> C<< ->new >>, B<AFTER> C<< ->BUILD >>, and B<AFTER> C<dzil>'s internal C<plugin_from_config> steps.
+
+This occurs within the C<register_component> phase of the plug-in loading and configuration.
+
+This also occurs B<BEFORE> C<Dist::Zilla> attaches the plug-in into the plug-in stash.
 
 =cut
 
