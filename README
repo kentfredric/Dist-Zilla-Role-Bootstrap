@@ -89,7 +89,7 @@ PRIVATE ATTRIBUTES
     Internal: This is the real legwork, and resolves the base directory
     using the bootstrap resolution protocol.
 
-    It should always return a project root of some kind, wether it be a
+    It should always return a project root of some kind, whether it be a
     source tree, or built source tree.
 
     It can also return "undef" if discovery concludes that no bootstrap can

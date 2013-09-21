@@ -301,7 +301,7 @@ Prior to C<0.2.0> this property did not exist, and default behaviour was to assu
 
 Internal: This is the real legwork, and resolves the base directory using the bootstrap resolution protocol.
 
-It should always return a project root of some kind, wether it be a source tree, or built source tree.
+It should always return a project root of some kind, whether it be a source tree, or built source tree.
 
 It can also return C<undef> if discovery concludes that no bootstrap can or should be performed.
 
