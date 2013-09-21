@@ -7,6 +7,14 @@ Release history for Dist-Zilla-Role-Bootstrap
  - Alternative mechanism attempts to parse versions out of build dirs and
    use the latest
 
+ [Dependencies::Added / runtime requires]
+ - List::UtilsBy
+ - version
+
+ [Dependencies::Added / test requires]
+ - File::Copy::Recursive
+ - File::Spec
+
 0.1.0 2013-09-04T11:24:24Z
  - First version.
 
