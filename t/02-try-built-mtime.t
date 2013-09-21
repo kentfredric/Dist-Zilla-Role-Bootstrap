@@ -44,7 +44,9 @@ use File::Copy::Recursive qw(rcopy);
 rcopy "$source", "$scratch";
 
 $scratch->child("Example-0.01")->child('lib')->mkpath;
+sleep 2;
 $scratch->child("Example-0.10")->child('lib')->mkpath;
+sleep 2;
 $scratch->child("Example-0.05")->child('lib')->mkpath;
 
 chdir $scratch->stringify;
