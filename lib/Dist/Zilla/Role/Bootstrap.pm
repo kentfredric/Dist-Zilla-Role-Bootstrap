@@ -95,7 +95,7 @@ sub _get_candidate_version {
   my ( $self, $candidate ) = @_;
   my $distname = $self->distname;
   if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
-    $version = $1;
+    my $version = $1;
     $version =~ s/-TRIAL\z//msx;
     require version;
     return version->parse($version);
