@@ -1,6 +1,11 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+ [00 Major - try_built_method]
+ - New mechanisms for try_built if there is >1 build trees
+ - Default mechanism 'mtime' picks built dir with the most recent mtime
+ - Alternative mechanism attempts to parse versions out of build dirs and
+   use the latest
 
 0.1.0 2013-09-04T11:24:24Z
  - First version.

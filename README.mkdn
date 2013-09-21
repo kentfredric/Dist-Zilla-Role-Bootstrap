@@ -4,7 +4,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 # VERSION
 
-version 0.1.0
+version 0.2.0
 
 # SYNOPSIS
 
@@ -40,6 +40,8 @@ For users of plugins:
 
 ## `fallback`
 
+## `try_built_method`
+
 # PRIVATE ATTRIBUTES
 
 ## `_cwd`
@@ -47,6 +49,14 @@ For users of plugins:
 ## `_bootstrap_root`
 
 # PRIVATE METHODS
+
+## `_pick_latest_mtime`
+
+## `_get_candidate_version`
+
+## `_pick_latest_parseversion`
+
+## `_pick_candidate`
 
 ## `_add_inc`
 

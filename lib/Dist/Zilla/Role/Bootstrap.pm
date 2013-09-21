@@ -47,11 +47,25 @@ For users of plugins:
 
 with 'Dist::Zilla::Role::Plugin';
 
+sub _max_by(&@) {
+  no warnings 'redefine';
+  require List::UtilsBy;
+  *_max_by = \&List::UtilsBy::max_by;
+  goto &List::UtilsBy::max_by;
+}
+
+sub _nmax_by(&@) {
+  no warnings 'redefine';
+  require List::UtilsBy;
+  *_nmax_by = \&List::UtilsBy::nmax_by;
+  goto &List::UtilsBy::nmax_by;
+}
+
 around 'dump_config' => sub {
   my ( $orig, $self, @args ) = @_;
   my $config    = $self->$orig(@args);
   my $localconf = {};
-  for my $var (qw( try_built fallback distname )) {
+  for my $var (qw( try_built try_built_method fallback distname )) {
     my $pred = 'has_' . $var;
     if ( $self->can($pred) ) {
       next unless $self->$pred();
@@ -106,6 +120,70 @@ has fallback => (
   builder => sub { return 1 },
 );
 
+=attr C<try_built_method>
+
+=cut
+
+has try_built_method => (
+  isa     => 'Str',
+  is      => ro =>,
+  lazy    => 1,
+  builder => sub { return 'mtime' }
+);
+
+=p_method C<_pick_latest_mtime>
+
+=cut
+
+sub _pick_latest_mtime {
+  my ( $self, @candidates ) = @_;
+  return _max_by { $_->stat->mtime } @candidates;
+}
+
+=p_method C<_get_candidate_version>
+
+=cut
+
+sub _get_candidate_version {
+  my ( $self, $candidate ) = @_;
+  my $distname = $self->distname;
+  if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
+    my $version = $1;
+    $version =~ s/-TRIAL\z//msx;
+    require version;
+    return version->parse($version);
+  }
+}
+
+=p_method C<_pick_latest_parseversion>
+
+=cut
+
+sub _pick_latest_parseversion {
+  my ( $self, @candidates ) = @_;
+  return _max_by { $self->_get_candidate_version($_) } @candidates;
+}
+
+my (%methods) = (
+  mtime        => _pick_latest_mtime        =>,
+  parseversion => _pick_latest_parseversion =>,
+);
+
+=p_method C<_pick_candidate>
+
+=cut
+
+sub _pick_candidate {
+  my ( $self, @candidates ) = @_;
+  my $method = $self->try_built_method;
+  if ( not exists $methods{$method} ) {
+    require Carp;
+    Carp::croak("No such candidate picking method $method");
+  }
+  $method = $methods{$method};
+  return $self->$method(@candidates);
+}
+
 =p_attr C<_bootstrap_root>
 
 =cut
@@ -119,20 +197,26 @@ has _bootstrap_root => (
       return $self->_cwd;
     }
     my $distname = $self->distname;
+
     my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
 
     if ( scalar @candidates == 1 ) {
       return $candidates[0];
     }
-    $self->log_debug( [ 'candidate: %s', $_->basename ] ) for @candidates;
-
-    if ( not $self->fallback ) {
-      $self->log( [ 'candidates for bootstrap (%s) != 1, and fallback disabled. not bootstrapping', 0 + @candidates ] );
-      return;
+    if ( scalar @candidates < 1 ) {
+      if ( not $self->fallback ) {
+        $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
+        return;
+      }
+      else {
+        $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
+        return $self->_cwd;
+      }
     }
 
-    $self->log( [ 'candidates for bootstrap (%s) != 1, fallback to boostrapping <distname>/', 0 + @candidates ] );
-    return $self->_cwd;
+    $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
+    return $self->_pick_candidate(@candidates);
+
   },
 );
 
