@@ -35,8 +35,19 @@ my $section = Dist::Zilla::MVP::Assembler::Zilla->new(
 use Path::FindDev qw( find_dev );
 use Path::Tiny qw( path );
 
-my $cwd     = path('./')->absolute;
-my $scratch = find_dev('./')->child('corpus')->child('fake_dist_01');
+my $cwd    = path('./')->absolute;
+my $source = find_dev('./')->child('corpus')->child('fake_dist_01');
+
+my $scratch = Path::Tiny->tempdir;
+use File::Copy::Recursive qw(rcopy);
+
+rcopy "$source", "$scratch";
+
+$scratch->child("Example-0.01")->child('lib')->mkpath;
+sleep 2;
+$scratch->child("Example-0.10")->child('lib')->mkpath;
+sleep 2;
+$scratch->child("Example-0.05")->child('lib')->mkpath;
 
 chdir $scratch->stringify;
 
@@ -45,7 +56,14 @@ $section->current_section->payload->{root}   = $scratch->stringify;
 $section->current_section->payload->{name}   = 'Example';
 $section->finalize;
 
-my $instance = Example->plugin_from_config( 'testing', {}, $section );
+my $instance = Example->plugin_from_config(
+  'testing',
+  {
+    try_built        => 1,
+    try_built_method => 'mtime'
+  },
+  $section
+);
 
 is_deeply(
   $instance->dump_config,
@@ -53,18 +71,20 @@ is_deeply(
     'Dist::Zilla::Role::Bootstrap' => {
       distname         => 'Example',
       fallback         => 1,
-      try_built        => undef,
+      try_built        => 1,
       try_built_method => 'mtime',
     }
   },
   'dump_config is expected'
 );
 
-is( $instance->distname,        'Example', 'distname is Example' );
-is( $instance->_cwd,            $scratch,  'cwd is project root/' );
-is( $instance->try_built,       undef,     'try_built is off' );
-is( $instance->fallback,        1,         'fallback is on' );
-is( $instance->_bootstrap_root, $scratch,  '_bootstrap_root == _cwd' );
+is( $instance->distname,         'Example',                       'distname is Example' );
+is( $instance->_cwd,             $scratch,                        'cwd is project root/' );
+is( $instance->try_built,        1,                               'try_built is on' );
+is( $instance->try_built_method, 'mtime',                         'try_built_method is mtime' );
+is( $instance->fallback,         1,                               'fallback is on' );
+is( $instance->_bootstrap_root,  $scratch->child('Example-0.05'), '_bootstrap_root == _cwd' );
 ok( $instance->can('_add_inc'), '_add_inc method exists' );
 
+chdir $cwd->stringify;
 done_testing;
