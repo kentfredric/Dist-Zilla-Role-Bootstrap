@@ -6,7 +6,7 @@ BEGIN {
   $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.1.1';
+  $Dist::Zilla::Role::Bootstrap::VERSION = '0.1.2';
 }
 
 # ABSTRACT: Shared logic for bootstrap things.
@@ -195,7 +195,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.1.1
+version 0.1.2
 
 =head1 SYNOPSIS
 
