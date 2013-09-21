@@ -86,7 +86,7 @@ has try_built_method => (
   isa     => 'Str',
   is      => ro =>,
   lazy    => 1,
-  builder => sub { return 'mtime' }
+  builder => sub { return 'mtime' },
 );
 
 
