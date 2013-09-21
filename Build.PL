@@ -17,7 +17,7 @@ my %module_build_args = (
     "Kent Fredric <kentfredric\@gmail.com>"
   ],
   "dist_name" => "Dist-Zilla-Role-Bootstrap",
-  "dist_version" => "0.1.2",
+  "dist_version" => "0.2.0",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Role::Bootstrap",
   "recommends" => {},
@@ -42,6 +42,7 @@ my %module_build_args = (
     "Dist::Zilla::Dist::Builder" => 0,
     "Dist::Zilla::MVP::Assembler::Zilla" => 0,
     "Dist::Zilla::MVP::Section" => 0,
+    "File::Copy::Recursive" => 0,
     "File::Spec" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,

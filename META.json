@@ -64,6 +64,7 @@
             "Dist::Zilla::Dist::Builder" : "0",
             "Dist::Zilla::MVP::Assembler::Zilla" : "0",
             "Dist::Zilla::MVP::Section" : "0",
+            "File::Copy::Recursive" : "0",
             "File::Spec" : "0",
             "IO::Handle" : "0",
             "IPC::Open3" : "0",
@@ -76,7 +77,7 @@
    "provides" : {
       "Dist::Zilla::Role::Bootstrap" : {
          "file" : "lib/Dist/Zilla/Role/Bootstrap.pm",
-         "version" : "v0.1.2"
+         "version" : "v0.2.0"
       }
    },
    "release_status" : "stable",
@@ -91,7 +92,7 @@
          "web" : "https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap"
       }
    },
-   "version" : "0.1.2",
+   "version" : "0.2.0",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.32",
@@ -103,6 +104,7 @@
          "Dist::Zilla::PluginBundle::Author::KENTNL" : "1.8.3",
          "Dist::Zilla::PluginBundle::Author::KENTNL::Lite" : "1.7.2",
          "Dist::Zilla::Role::Plugin" : "4.300039",
+         "File::Copy::Recursive" : "0.38",
          "File::Spec" : "3.44",
          "IO::Handle" : "1.35",
          "IPC::Open3" : "1.15",
@@ -154,8 +156,7 @@
                "Dist::Zilla::Role::Bootstrap" : {
                   "distname" : "Dist-Zilla-Role-Bootstrap",
                   "fallback" : "1",
-                  "try_built" : "1",
-                  "try_built_method" : "mtime"
+                  "try_built" : "1"
                }
             },
             "name" : "Bootstrap::lib",

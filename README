@@ -2,7 +2,7 @@ NAME
     Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 VERSION
-    version 0.1.2
+    version 0.2.0
 
 SYNOPSIS
     For consuming plugins:
@@ -31,10 +31,15 @@ ATTRIBUTES
   "distname"
   "try_built"
   "fallback"
+  "try_built_method"
 PRIVATE ATTRIBUTES
   "_cwd"
   "_bootstrap_root"
 PRIVATE METHODS
+  "_pick_latest_mtime"
+  "_get_candidate_version"
+  "_pick_latest_parseversion"
+  "_pick_candidate"
   "_add_inc"
 AUTHOR
     Kent Fredric <kentfredric@gmail.com>

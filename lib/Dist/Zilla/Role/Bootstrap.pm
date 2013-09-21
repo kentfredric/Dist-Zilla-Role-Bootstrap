@@ -6,7 +6,7 @@ BEGIN {
   $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.1.2';
+  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.0';
 }
 
 # ABSTRACT: Shared logic for bootstrap things.
@@ -79,6 +79,7 @@ has fallback => (
   builder => sub { return 1 },
 );
 
+
 has try_built_method => (
   isa     => 'Str',
   is      => ro =>,
@@ -86,10 +87,12 @@ has try_built_method => (
   builder => sub { return 'mtime' }
 );
 
+
 sub _pick_latest_mtime {
   my ( $self, @candidates ) = @_;
   return _max_by { $_->stat->mtime } @candidates;
 }
+
 
 sub _get_candidate_version {
   my ( $self, $candidate ) = @_;
@@ -102,6 +105,7 @@ sub _get_candidate_version {
   }
 }
 
+
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
   return _max_by { $self->_get_candidate_version($_) } @candidates;
@@ -112,6 +116,7 @@ my (%methods) = (
   parseversion => _pick_latest_parseversion =>,
 );
 
+
 sub _pick_candidate {
   my ( $self, @candidates ) = @_;
   my $method = $self->try_built_method;
@@ -119,6 +124,7 @@ sub _pick_candidate {
     require Carp;
     Carp::croak("No such candidate picking method $method");
   }
+  $method = $methods{$method};
   return $self->$method(@candidates);
 }
 
@@ -195,7 +201,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.1.2
+version 0.2.0
 
 =head1 SYNOPSIS
 
@@ -231,6 +237,8 @@ For users of plugins:
 
 =head2 C<fallback>
 
+=head2 C<try_built_method>
+
 =head1 PRIVATE ATTRIBUTES
 
 =head2 C<_cwd>
@@ -238,6 +246,14 @@ For users of plugins:
 =head2 C<_bootstrap_root>
 
 =head1 PRIVATE METHODS
+
+=head2 C<_pick_latest_mtime>
+
+=head2 C<_get_candidate_version>
+
+=head2 C<_pick_latest_parseversion>
+
+=head2 C<_pick_candidate>
 
 =head2 C<_add_inc>
 
