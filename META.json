@@ -76,7 +76,7 @@
    "provides" : {
       "Dist::Zilla::Role::Bootstrap" : {
          "file" : "lib/Dist/Zilla/Role/Bootstrap.pm",
-         "version" : "v0.1.2"
+         "version" : "v0.1.1"
       }
    },
    "release_status" : "stable",
@@ -91,7 +91,7 @@
          "web" : "https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap"
       }
    },
-   "version" : "0.1.2",
+   "version" : "0.1.1",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.32",
@@ -154,8 +154,7 @@
                "Dist::Zilla::Role::Bootstrap" : {
                   "distname" : "Dist-Zilla-Role-Bootstrap",
                   "fallback" : "1",
-                  "try_built" : "1",
-                  "try_built_method" : "mtime"
+                  "try_built" : "1"
                }
             },
             "name" : "Bootstrap::lib",

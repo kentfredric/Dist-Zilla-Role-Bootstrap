@@ -6,7 +6,7 @@ BEGIN {
   $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.1.2';
+  $Dist::Zilla::Role::Bootstrap::VERSION = '0.1.1';
 }
 
 # ABSTRACT: Shared logic for bootstrap things.
@@ -149,7 +149,7 @@ has _bootstrap_root => (
       }
     }
 
-    $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_fallback_method ] );
+    $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
     return $self->_pick_candidate(@candidates);
 
   },
@@ -195,7 +195,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.1.2
+version 0.1.1
 
 =head1 SYNOPSIS
 
