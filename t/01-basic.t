@@ -61,7 +61,7 @@ is_deeply(
 );
 
 is( $instance->distname,        'Example', 'distname is Example' );
-is( $instance->_cwd,            $scratch,  'cwd is project root/' );
+is( $instance->_cwd->realpath,            $scratch->realpath,  'cwd is project root/' );
 is( $instance->try_built,       undef,     'try_built is off' );
 is( $instance->fallback,        1,         'fallback is on' );
 is( $instance->_bootstrap_root, $scratch,  '_bootstrap_root == _cwd' );
