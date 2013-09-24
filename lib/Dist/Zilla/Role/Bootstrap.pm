@@ -6,7 +6,7 @@ BEGIN {
   $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.0';
+  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.1';
 }
 
 # ABSTRACT: Shared logic for bootstrap things.
@@ -60,8 +60,7 @@ has _cwd => (
   lazy    => 1,
   builder => sub {
     require Path::Tiny;
-    require Cwd;
-    return Path::Tiny::path( Cwd::cwd() );
+    return Path::Tiny::path( $_[0]->zilla->root );
   },
 );
 
@@ -203,7 +202,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.2.0
+version 0.2.1
 
 =head1 SYNOPSIS
 

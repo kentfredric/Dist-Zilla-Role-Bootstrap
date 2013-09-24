@@ -18,7 +18,7 @@ build_requires:
 configure_requires:
   Module::Build: 0.4007
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132620'
+generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132661'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -27,10 +27,9 @@ name: Dist-Zilla-Role-Bootstrap
 provides:
   Dist::Zilla::Role::Bootstrap:
     file: lib/Dist/Zilla/Role/Bootstrap.pm
-    version: v0.2.0
+    version: v0.2.1
 requires:
   Carp: 0
-  Cwd: 0
   Dist::Zilla::Role::Plugin: 0
   List::UtilsBy: 0
   Moose::Role: 0
@@ -45,11 +44,10 @@ resources:
   bugtracker: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap/issues
   homepage: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap
   repository: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap.git
-version: 0.2.0
+version: 0.2.1
 x_BuiltWith:
   modules:
     Carp: 1.32
-    Cwd: 3.44
     Dist::Zilla::Chrome::Test: 4.300039
     Dist::Zilla::Dist::Builder: 4.300039
     Dist::Zilla::MVP::Assembler::Zilla: 4.300039
@@ -67,7 +65,7 @@ x_BuiltWith:
     Moose::Role: 2.1005
     MooseX::AttributeShortcuts: 0.021
     Path::FindDev: 0.3.1
-    Path::Tiny: 0.033
+    Path::Tiny: 0.034
     Pod::Coverage::TrustPod: 0.100002
     Test::CPAN::Changes: 0.23
     Test::CPAN::Meta: 0.23
@@ -92,7 +90,7 @@ x_BuiltWith:
     myarchname: x86_64-linux
     osname: linux
   platform: linux
-  uname: 'Linux 3.11.0-gentoo x86_64 GenuineIntel GNU/Linux'
+  uname: 'Linux 3.11.1-gentoo x86_64 GenuineIntel GNU/Linux'
 x_Dist_Zilla:
   perl:
     version: 5.019003
