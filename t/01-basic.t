@@ -60,11 +60,11 @@ is_deeply(
   'dump_config is expected'
 );
 
-is( $instance->distname,        'Example', 'distname is Example' );
-is( $instance->_cwd->realpath,            $scratch->realpath,  'cwd is project root/' );
-is( $instance->try_built,       undef,     'try_built is off' );
-is( $instance->fallback,        1,         'fallback is on' );
-is( $instance->_bootstrap_root, $scratch,  '_bootstrap_root == _cwd' );
+is( $instance->distname,        'Example',          'distname is Example' );
+is( $instance->_cwd->realpath,  $scratch->realpath, 'cwd is project root/' );
+is( $instance->try_built,       undef,              'try_built is off' );
+is( $instance->fallback,        1,                  'fallback is on' );
+is( $instance->_bootstrap_root, $scratch,           '_bootstrap_root == _cwd' );
 ok( $instance->can('_add_inc'), '_add_inc method exists' );
 
 done_testing;
