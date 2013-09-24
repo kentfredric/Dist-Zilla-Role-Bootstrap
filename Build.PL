@@ -17,14 +17,13 @@ my %module_build_args = (
     "Kent Fredric <kentfredric\@gmail.com>"
   ],
   "dist_name" => "Dist-Zilla-Role-Bootstrap",
-  "dist_version" => "0.2.0",
+  "dist_version" => "0.2.1",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Role::Bootstrap",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Carp" => 0,
-    "Cwd" => 0,
     "Dist::Zilla::Role::Plugin" => 0,
     "List::UtilsBy" => 0,
     "Moose::Role" => 0,

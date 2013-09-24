@@ -49,7 +49,6 @@ sub pmver {
 }
 
 eval { $v .= pmver('Carp','any version') };
-eval { $v .= pmver('Cwd','any version') };
 eval { $v .= pmver('Dist::Zilla::Chrome::Test','any version') };
 eval { $v .= pmver('Dist::Zilla::Dist::Builder','any version') };
 eval { $v .= pmver('Dist::Zilla::MVP::Assembler::Zilla','any version') };

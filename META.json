@@ -45,7 +45,6 @@
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "Cwd" : "0",
             "Dist::Zilla::Role::Plugin" : "0",
             "List::UtilsBy" : "0",
             "Moose::Role" : "0",
@@ -77,7 +76,7 @@
    "provides" : {
       "Dist::Zilla::Role::Bootstrap" : {
          "file" : "lib/Dist/Zilla/Role/Bootstrap.pm",
-         "version" : "v0.2.0"
+         "version" : "v0.2.1"
       }
    },
    "release_status" : "stable",
@@ -92,11 +91,10 @@
          "web" : "https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap"
       }
    },
-   "version" : "0.2.0",
+   "version" : "0.2.1",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.32",
-         "Cwd" : "3.44",
          "Dist::Zilla::Chrome::Test" : "4.300039",
          "Dist::Zilla::Dist::Builder" : "4.300039",
          "Dist::Zilla::MVP::Assembler::Zilla" : "4.300039",
@@ -143,7 +141,7 @@
          "osname" : "linux"
       },
       "platform" : "linux",
-      "uname" : "Linux 3.11.0-gentoo x86_64 GenuineIntel GNU/Linux"
+      "uname" : "Linux 3.11.1-gentoo x86_64 GenuineIntel GNU/Linux"
    },
    "x_Dist_Zilla" : {
       "perl" : {
