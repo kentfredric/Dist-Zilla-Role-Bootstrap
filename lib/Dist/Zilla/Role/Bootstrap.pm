@@ -115,8 +115,7 @@ has _cwd => (
   lazy    => 1,
   builder => sub {
     require Path::Tiny;
-    require Cwd;
-    return Path::Tiny::path( Cwd::cwd() );
+    return Path::Tiny::path( $_[0]->zilla->root );
   },
 );
 
