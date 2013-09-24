@@ -1,6 +1,6 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
-0.2.1 2013-09-24T02:31:45Z
+0.2.1 2013-09-24T02:33:41Z
  [Bugfix]
  - use ->realpath for comparisons to avoid symlink confusion on darwin
  - use $zilla->root instead of calling cwd()
