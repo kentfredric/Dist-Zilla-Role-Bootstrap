@@ -4,7 +4,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 # VERSION
 
-version 0.2.1
+version 0.2.2
 
 # SYNOPSIS
 
@@ -129,11 +129,11 @@ Internal: Used to perform the final step of injecting library paths into `@INC`
 
 ## `_max_by`
 
-Proxy for [`List::UtilsBy::__max\_by__`](http://search.cpan.org/perldoc?List::UtilsBy#max\_by)
+Proxy for [`List::UtilsBy::__max\_by__`](https://metacpan.org/pod/List::UtilsBy#max_by)
 
 ## `_nmax_by`
 
-Proxy for [`List::UtilsBy::__nmax\_by__`](http://search.cpan.org/perldoc?List::UtilsBy#nmax\_by)
+Proxy for [`List::UtilsBy::__nmax\_by__`](https://metacpan.org/pod/List::UtilsBy#nmax_by)
 
 {
     "namespace":"Dist::Zilla::Role::Bootstrap",
