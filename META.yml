@@ -24,7 +24,7 @@ name: Dist-Zilla-Role-Bootstrap
 provides:
   Dist::Zilla::Role::Bootstrap:
     file: lib/Dist/Zilla/Role/Bootstrap.pm
-    version: v0.2.2
+    version: v0.2.3
 requires:
   Carp: 0
   Dist::Zilla::Role::Plugin: 0
@@ -41,7 +41,7 @@ resources:
   bugtracker: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap/issues
   homepage: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap
   repository: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap.git
-version: 0.2.2
+version: 0.2.3
 x_BuiltWith:
   modules:
     Carp: 1.32
@@ -52,7 +52,7 @@ x_BuiltWith:
     Dist::Zilla::Plugin::Author::KENTNL::MinimumPerl: 2.002001
     Dist::Zilla::Plugin::Authority: 1.006
     Dist::Zilla::Plugin::AutoPrereqs: 5.006
-    Dist::Zilla::Plugin::CheckExtraTests: 0.015
+    Dist::Zilla::Plugin::CheckExtraTests: 0.016
     Dist::Zilla::Plugin::ConfirmRelease: 5.006
     Dist::Zilla::Plugin::EOLTests: 0.02
     Dist::Zilla::Plugin::Git::Check: 2.017
@@ -271,9 +271,9 @@ x_Dist_Zilla:
               name: '@CorePrep/H1Nester'
               version: 4.004
             -
-              class: Pod::Weaver::Plugin::Encoding
-              name: '-Encoding'
-              version: 0.02
+              class: Pod::Weaver::Plugin::SingleEncoding
+              name: '-SingleEncoding'
+              version: 4.004
             -
               class: Pod::Weaver::Section::Name
               name: Name
@@ -391,7 +391,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::CheckExtraTests
       name: '@Author::KENTNL/CheckExtraTests'
-      version: 0.015
+      version: 0.016
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Author::KENTNL/TestRelease'

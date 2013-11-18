@@ -112,7 +112,7 @@
    "provides" : {
       "Dist::Zilla::Role::Bootstrap" : {
          "file" : "lib/Dist/Zilla/Role/Bootstrap.pm",
-         "version" : "v0.2.2"
+         "version" : "v0.2.3"
       }
    },
    "release_status" : "stable",
@@ -127,7 +127,7 @@
          "web" : "https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap"
       }
    },
-   "version" : "0.2.2",
+   "version" : "0.2.3",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.32",
@@ -138,7 +138,7 @@
          "Dist::Zilla::Plugin::Author::KENTNL::MinimumPerl" : "2.002001",
          "Dist::Zilla::Plugin::Authority" : "1.006",
          "Dist::Zilla::Plugin::AutoPrereqs" : "5.006",
-         "Dist::Zilla::Plugin::CheckExtraTests" : "0.015",
+         "Dist::Zilla::Plugin::CheckExtraTests" : "0.016",
          "Dist::Zilla::Plugin::ConfirmRelease" : "5.006",
          "Dist::Zilla::Plugin::EOLTests" : "0.02",
          "Dist::Zilla::Plugin::Git::Check" : "2.017",
@@ -399,9 +399,9 @@
                         "version" : "4.004"
                      },
                      {
-                        "class" : "Pod::Weaver::Plugin::Encoding",
-                        "name" : "-Encoding",
-                        "version" : "0.02"
+                        "class" : "Pod::Weaver::Plugin::SingleEncoding",
+                        "name" : "-SingleEncoding",
+                        "version" : "4.004"
                      },
                      {
                         "class" : "Pod::Weaver::Section::Name",
@@ -554,7 +554,7 @@
          {
             "class" : "Dist::Zilla::Plugin::CheckExtraTests",
             "name" : "@Author::KENTNL/CheckExtraTests",
-            "version" : "0.015"
+            "version" : "0.016"
          },
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",
