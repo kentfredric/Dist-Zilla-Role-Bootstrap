@@ -17,7 +17,7 @@ my %module_build_args = (
     "Kent Fredric <kentfredric\@gmail.com>"
   ],
   "dist_name" => "Dist-Zilla-Role-Bootstrap",
-  "dist_version" => "0.2.2",
+  "dist_version" => "0.2.3",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Role::Bootstrap",
   "recommends" => {},
@@ -27,7 +27,7 @@ my %module_build_args = (
     "Dist::Zilla::Role::Plugin" => 0,
     "List::UtilsBy" => 0,
     "Moose::Role" => 0,
-    "MooseX::AttributeShortcuts" => 0,
+    "MooseX::AttributeShortcuts" => "0.015",
     "Path::Tiny" => 0,
     "lib" => 0,
     "perl" => "5.006",

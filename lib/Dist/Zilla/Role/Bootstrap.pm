@@ -6,13 +6,13 @@ BEGIN {
   $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
 }
 {
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.2';
+  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.3';
 }
 
 # ABSTRACT: Shared logic for bootstrap things.
 
 use Moose::Role;
-use MooseX::AttributeShortcuts;
+use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
 
 
@@ -202,7 +202,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.2.2
+version 0.2.3
 
 =head1 SYNOPSIS
 
