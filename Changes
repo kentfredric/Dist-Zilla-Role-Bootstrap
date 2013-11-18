@@ -1,6 +1,6 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
-0.2.2 2013-11-18T04:19:28Z
+0.2.2 2013-11-18T04:24:16Z
  [00 Minor/Bugfix]
  - Drop mandatory dep on 5.10.1. You will need a recent version.pm if you
    want a version-specific dependency to work
