@@ -1,6 +1,10 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+ [00 Bugfix]
+ - Depend on a minimum version of MooseX::AttributeShortcuts to provide
+   builder => sub {} support
+ - Thanks, Graham Ollis for reporting, closes #1
 
 0.2.2 2013-11-18T04:24:16Z
  [00 Minor/Bugfix]

@@ -6,7 +6,7 @@ package Dist::Zilla::Role::Bootstrap;
 # ABSTRACT: Shared logic for bootstrap things.
 
 use Moose::Role;
-use MooseX::AttributeShortcuts;
+use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
 =begin MetaPOD::JSON v1.1.0
 
