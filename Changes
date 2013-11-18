@@ -6,6 +6,9 @@ Release history for Dist-Zilla-Role-Bootstrap
    builder => sub {} support
  - Thanks, Graham Ollis for reporting, closes #1
 
+ [Dependencies::Changed / runtime requires]
+ - MooseX::AttributeShortcuts 0 → 0.015
+
 0.2.2 2013-11-18T04:24:16Z
  [00 Minor/Bugfix]
  - Drop mandatory dep on 5.10.1. You will need a recent version.pm if you
