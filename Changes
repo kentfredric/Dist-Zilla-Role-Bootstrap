@@ -1,6 +1,8 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+
+0.2.3 2013-11-18T17:50:53Z
  [00 Bugfix]
  - Depend on a minimum version of MooseX::AttributeShortcuts to provide
    builder => sub {} support
