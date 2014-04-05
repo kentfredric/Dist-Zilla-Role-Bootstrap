@@ -140,7 +140,6 @@ my $static_prereqs = do { my $x = {
                                    'FindBin' => '0',
                                    'List::Util' => '0',
                                    'Moose' => '0',
-                                   'Path::FindDev' => '0',
                                    'Test::More' => '0.89'
                                  }
                  }

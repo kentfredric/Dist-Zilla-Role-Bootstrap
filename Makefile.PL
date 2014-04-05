@@ -44,7 +44,6 @@ my %WriteMakefileArgs = (
     "FindBin" => 0,
     "List::Util" => 0,
     "Moose" => 0,
-    "Path::FindDev" => 0,
     "Test::More" => "0.89"
   },
   "VERSION" => "1.000001",
@@ -70,7 +69,6 @@ my %FallbackPrereqs = (
   "Moose" => 0,
   "Moose::Role" => 0,
   "MooseX::AttributeShortcuts" => "0.015",
-  "Path::FindDev" => 0,
   "Path::Tiny" => 0,
   "Test::More" => "0.89",
   "lib" => 0,
