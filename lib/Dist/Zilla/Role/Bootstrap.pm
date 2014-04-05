@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
-$Dist::Zilla::Role::Bootstrap::VERSION = '1.000000';
+$Dist::Zilla::Role::Bootstrap::VERSION = '1.000001';
 # ABSTRACT: Shared logic for bootstrap things.
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -339,7 +339,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 SYNOPSIS
 
