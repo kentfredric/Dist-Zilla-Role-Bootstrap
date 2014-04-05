@@ -15,6 +15,11 @@ Release history for Dist-Zilla-Role-Bootstrap
  [02 Tooling Change]
  - Internals now run on ExtUtils::MakeMaker instead of Module::Build.
 
+ [Dependencies::Aggregate]
+ - 5.008 : 205 → 207
+ - 5.010 : 183 → 187
+ - 5.019 : 167 → 166
+
  [Dependencies::Stats]
  - Dependencies changed since 0.2.3, see Changes.deps{,.all,.dev} for
    details
