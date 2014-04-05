@@ -157,7 +157,7 @@ Two valid options at this time:
 
 =back
 
-Prior to C<0.2.0> this property did not exist, and default behaviour was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
+Prior to C<0.2.0> this property did not exist, and default behavior was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
 
 =cut
 
