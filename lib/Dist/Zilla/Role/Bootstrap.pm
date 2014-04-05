@@ -1,4 +1,4 @@
-use 5.008; # utf8
+use 5.008;    # utf8
 use strict;
 use warnings;
 use utf8;
@@ -192,7 +192,7 @@ sub _pick_latest_mtime {
 
 
 sub _get_candidate_version {
-  my ( $self, $candidate ) = @_;
+  my ( undef, $candidate ) = @_;
   my $distname = $self->distname;
   if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
     my $version = $1;
@@ -261,7 +261,7 @@ has _bootstrap_root => (
 
     my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
 
-    if ( scalar @candidates == 1 ) {
+    if ( 1 == scalar @candidates ) {
       return $candidates[0];
     }
     if ( scalar @candidates < 1 ) {
@@ -290,7 +290,7 @@ has _bootstrap_root => (
 
 
 sub _add_inc {
-  my ( $self, $import ) = @_;
+  my ( undef, $import ) = @_;
   if ( not ref $import ) {
     require lib;
     return lib->import($import);
