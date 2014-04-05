@@ -36,7 +36,7 @@ use FindBin;
 use Path::Tiny qw( path );
 
 my $cwd     = path('./')->absolute;
-my $scratch = path("$FindBin::Bin")->child('corpus')->child('fake_dist_01');
+my $scratch = path("$FindBin::Bin")->parent->child('corpus')->child('fake_dist_01');
 
 chdir $scratch->stringify;
 
