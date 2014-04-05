@@ -12,6 +12,7 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 use Moose::Role qw( with has around requires );
 use List::UtilsBy qw( max_by nmax_by );
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
+use version qw();
 
 
 
@@ -195,9 +196,9 @@ sub _get_candidate_version {
   if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
     my $version = $1;
     $version =~ s/-TRIAL\z//msx;
-    require version;
     return version->parse($version);
   }
+
 }
 
 
