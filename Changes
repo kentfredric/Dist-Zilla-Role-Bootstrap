@@ -4,6 +4,11 @@ Release history for Dist-Zilla-Role-Bootstrap
  [00 Test Fixes]
  - Drop dependency on Path::FindDev
 
+ [Dependencies::Aggregate]
+ - 5.008 : 207 → 205
+ - 5.010 : 187 → 185
+ - 5.019 : 166 → 163
+
  [Dependencies::Stats]
  - Dependencies changed since 1.000000, see Changes.deps{,.all,.dev} for
    details
