@@ -1,5 +1,7 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
+0.002004 2013-11-18T17:51:34Z
+
 0.2.3 2013-11-18T17:50:53Z
  [00 Bugfix]
  - Depend on a minimum version of MooseX::AttributeShortcuts to provide

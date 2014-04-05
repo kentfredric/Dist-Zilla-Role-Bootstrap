@@ -2,13 +2,7 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Role::Bootstrap;
-BEGIN {
-  $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.3';
-}
-
+$Dist::Zilla::Role::Bootstrap::VERSION = '0.002004';
 # ABSTRACT: Shared logic for bootstrap things.
 
 use Moose::Role;
@@ -16,7 +10,47 @@ use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 with 'Dist::Zilla::Role::Plugin';
+
+
+
+
+
 
 
 sub _max_by(&@) {
@@ -25,6 +59,11 @@ sub _max_by(&@) {
   *_max_by = \&List::UtilsBy::max_by;
   goto &List::UtilsBy::max_by;
 }
+
+
+
+
+
 
 
 sub _nmax_by(&@) {
@@ -52,7 +91,23 @@ around 'dump_config' => sub {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+
+
+
 
 
 has _cwd => (
@@ -65,12 +120,39 @@ has _cwd => (
 );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 has try_built => (
   isa     => 'Bool',
   is      => ro =>,
   lazy    => 1,
   builder => sub { return },
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 has fallback => (
@@ -81,6 +163,23 @@ has fallback => (
 );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 has try_built_method => (
   isa     => 'Str',
   is      => ro =>,
@@ -89,10 +188,26 @@ has try_built_method => (
 );
 
 
+
+
+
+
+
+
+
 sub _pick_latest_mtime {
   my ( $self, @candidates ) = @_;
   return _max_by { $_->stat->mtime } @candidates;
 }
+
+
+
+
+
+
+
+
+
 
 
 sub _get_candidate_version {
@@ -107,6 +222,13 @@ sub _get_candidate_version {
 }
 
 
+
+
+
+
+
+
+
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
   return _max_by { $self->_get_candidate_version($_) } @candidates;
@@ -116,6 +238,13 @@ my (%methods) = (
   mtime        => _pick_latest_mtime        =>,
   parseversion => _pick_latest_parseversion =>,
 );
+
+
+
+
+
+
+
 
 
 sub _pick_candidate {
@@ -128,6 +257,15 @@ sub _pick_candidate {
   $method = $methods{$method};
   return $self->$method(@candidates);
 }
+
+
+
+
+
+
+
+
+
 
 
 has _bootstrap_root => (
@@ -163,6 +301,13 @@ has _bootstrap_root => (
 );
 
 
+
+
+
+
+
+
+
 sub _add_inc {
   my ( $self, $import ) = @_;
   if ( not ref $import ) {
@@ -172,6 +317,17 @@ sub _add_inc {
   require Carp;
   return Carp::croak('At this time, _add_inc(arg) only supports scalar values of arg');
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 requires 'bootstrap';
@@ -202,7 +358,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.2.3
+version 0.002004
 
 =head1 SYNOPSIS
 
@@ -365,7 +521,7 @@ Kent Fredric <kentfredric@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

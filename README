@@ -2,7 +2,7 @@ NAME
     Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 VERSION
-    version 0.2.3
+    version 0.002004
 
 SYNOPSIS
     For consuming plugins:
@@ -137,7 +137,7 @@ AUTHOR
     Kent Fredric <kentfredric@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Kent Fredric
+    This software is copyright (c) 2014 by Kent Fredric
     <kentfredric@gmail.com>.
 
     This is free software; you can redistribute it and/or modify it under
