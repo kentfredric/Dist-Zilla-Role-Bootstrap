@@ -261,7 +261,7 @@ has _bootstrap_root => (
 
     my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
 
-    if ( scalar @candidates == 1 ) {
+    if ( 1 == scalar @candidates ) {
       return $candidates[0];
     }
     if ( scalar @candidates < 1 ) {
