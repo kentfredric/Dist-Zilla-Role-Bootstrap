@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use 5.006;
+use 5.008;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -23,12 +23,13 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "Dist::Zilla::Role::Plugin" => 0,
-    "List::UtilsBy" => 0,
+    "List::Utils" => 0,
     "Moose::Role" => 0,
     "MooseX::AttributeShortcuts" => "0.015",
     "Path::Tiny" => 0,
     "lib" => 0,
     "strict" => 0,
+    "utf8" => 0,
     "version" => 0,
     "warnings" => 0
   },
@@ -63,7 +64,7 @@ my %FallbackPrereqs = (
   "File::Copy::Recursive" => 0,
   "File::Spec::Functions" => 0,
   "List::Util" => 0,
-  "List::UtilsBy" => 0,
+  "List::Utils" => 0,
   "Moose" => 0,
   "Moose::Role" => 0,
   "MooseX::AttributeShortcuts" => "0.015",
@@ -72,6 +73,7 @@ my %FallbackPrereqs = (
   "Test::More" => "0.89",
   "lib" => 0,
   "strict" => 0,
+  "utf8" => 0,
   "version" => 0,
   "warnings" => 0
 );

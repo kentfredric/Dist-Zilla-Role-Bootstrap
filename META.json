@@ -81,13 +81,14 @@
          "requires" : {
             "Carp" : "0",
             "Dist::Zilla::Role::Plugin" : "0",
-            "List::UtilsBy" : "0",
+            "List::Utils" : "0",
             "Moose::Role" : "0",
             "MooseX::AttributeShortcuts" : "0.015",
             "Path::Tiny" : "0",
             "lib" : "0",
-            "perl" : "5.006",
+            "perl" : "5.008",
             "strict" : "0",
+            "utf8" : "0",
             "version" : "0",
             "warnings" : "0"
          }
@@ -134,6 +135,9 @@
    },
    "version" : "0.002004",
    "x_BuiltWith" : {
+      "failures" : {
+         "List::Utils" : "module was not found in INC"
+      },
       "modules" : {
          "CPAN::Meta" : "2.140640",
          "CPAN::Meta::Requirements" : "2.125",
@@ -190,7 +194,6 @@
          "File::Copy::Recursive" : "0.38",
          "File::Spec::Functions" : "3.47",
          "List::Util" : "1.38",
-         "List::UtilsBy" : "0.09",
          "Moose" : "2.1204",
          "Moose::Role" : "2.1204",
          "MooseX::AttributeShortcuts" : "0.022",
@@ -205,6 +208,7 @@
          "Test::Pod::Coverage" : "1.08",
          "lib" : "0.63",
          "strict" : "1.08",
+         "utf8" : "1.13",
          "version" : "0.9908",
          "warnings" : "1.23"
       },

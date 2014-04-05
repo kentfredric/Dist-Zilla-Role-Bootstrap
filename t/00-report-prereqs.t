@@ -110,13 +110,14 @@ my $static_prereqs = do { my $x = {
                       'requires' => {
                                       'Carp' => '0',
                                       'Dist::Zilla::Role::Plugin' => '0',
-                                      'List::UtilsBy' => '0',
+                                      'List::Utils' => '0',
                                       'Moose::Role' => '0',
                                       'MooseX::AttributeShortcuts' => '0.015',
                                       'Path::Tiny' => '0',
                                       'lib' => '0',
-                                      'perl' => '5.006',
+                                      'perl' => '5.008',
                                       'strict' => '0',
+                                      'utf8' => '0',
                                       'version' => '0',
                                       'warnings' => '0'
                                     }

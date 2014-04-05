@@ -1,5 +1,7 @@
+use 5.008; # utf8
 use strict;
 use warnings;
+use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
 $Dist::Zilla::Role::Bootstrap::VERSION = '0.002004';
@@ -7,7 +9,8 @@ $Dist::Zilla::Role::Bootstrap::VERSION = '0.002004';
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
-use Moose::Role;
+use Moose::Role qw( with has around );
+use List::Utils qw( max_by nmax_by );
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
 
@@ -48,32 +51,6 @@ use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
 
 with 'Dist::Zilla::Role::Plugin';
-
-
-
-
-
-
-
-sub _max_by(&@) {
-  no warnings 'redefine';
-  require List::UtilsBy;
-  *_max_by = \&List::UtilsBy::max_by;
-  goto &List::UtilsBy::max_by;
-}
-
-
-
-
-
-
-
-sub _nmax_by(&@) {
-  no warnings 'redefine';
-  require List::UtilsBy;
-  *_nmax_by = \&List::UtilsBy::nmax_by;
-  goto &List::UtilsBy::nmax_by;
-}
 
 around 'dump_config' => sub {
   my ( $orig, $self, @args ) = @_;
@@ -199,7 +176,7 @@ has try_built_method => (
 
 sub _pick_latest_mtime {
   my ( $self, @candidates ) = @_;
-  return _max_by { $_->stat->mtime } @candidates;
+  return max_by { $_->stat->mtime } @candidates;
 }
 
 
@@ -448,7 +425,7 @@ Two valid options at this time:
 
 =back
 
-Prior to C<0.2.0> this property did not exist, and default behaviour was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
+Prior to C<0.2.0> this property did not exist, and default behavior was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
 
 =head1 PRIVATE ATTRIBUTES
 
@@ -495,16 +472,6 @@ Pick a directory from a list of candidates using the method described by C<try_b
 Internal: Used to perform the final step of injecting library paths into C<@INC>
 
     $self->_add_inc("$libraryPath");
-
-=head1 PRIVATE FUNCTIONS
-
-=head2 C<_max_by>
-
-Proxy for L<< C<List::UtilsBy::B<max_by>>|List::UtilsBy/max_by >>
-
-=head2 C<_nmax_by>
-
-Proxy for L<< C<List::UtilsBy::B<nmax_by>>|List::UtilsBy/nmax_by >>
 
 =begin MetaPOD::JSON v1.1.0
 
