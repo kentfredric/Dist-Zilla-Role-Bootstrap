@@ -138,7 +138,7 @@
       "modules" : {
          "CPAN::Meta" : "2.140640",
          "CPAN::Meta::Requirements" : "2.125",
-         "Carp" : "1.33",
+         "Carp" : "1.3301",
          "Dist::Zilla::Chrome::Test" : "5.015",
          "Dist::Zilla::Dist::Builder" : "5.015",
          "Dist::Zilla::MVP::Assembler::Zilla" : "5.015",
@@ -194,7 +194,7 @@
          "List::UtilsBy" : "0.09",
          "Moose" : "2.1204",
          "Moose::Role" : "2.1204",
-         "MooseX::AttributeShortcuts" : "0.022",
+         "MooseX::AttributeShortcuts" : "0.023",
          "Path::FindDev" : "0.5.0",
          "Path::Tiny" : "0.052",
          "Pod::Coverage::TrustPod" : "0.100003",
