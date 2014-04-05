@@ -1,6 +1,20 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+ [00 Major]
+ - This distribution has a few changes that are major enough that non-perl
+   toolchains may need to pay attention.
+ - Everyone else should find the changes in this release boring, except
+   maybe those who are trying to get off the Module::Build train.
+
+ [01 Versioning Scheme change]
+ - x.y.z becomes x.abydez, aka: Floats. If this is a problem, please
+   normalise versions downstream.
+ - Versioning scheme change is primary reason for 1.XXX on the box.
+
+ [02 Tooling Change]
+ - Internals now run on ExtUtils::MakeMaker instead of Module::Build.
+
  [Dependencies::Stats]
  - Dependencies changed since 0.2.3, see Changes.deps{,.all,.dev} for
    details
