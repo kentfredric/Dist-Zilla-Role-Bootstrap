@@ -1,4 +1,4 @@
-0.2.4
+1.000000
  [Added / develop requires]
  - Dist::Zilla::Plugin::Git::NextRelease
  - Dist::Zilla::Plugin::Git::NextVersion::Sanitized
