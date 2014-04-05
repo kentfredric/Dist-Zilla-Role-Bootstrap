@@ -32,11 +32,10 @@ my $section = Dist::Zilla::MVP::Assembler::Zilla->new(
   zilla_class   => 'Dist::Zilla::Dist::Builder',
   section_class => 'Dist::Zilla::MVP::Section',
 );
-use Path::FindDev qw( find_dev );
 use Path::Tiny qw( path );
-
+use FindBin;
 my $cwd    = path('./')->absolute;
-my $source = find_dev('./')->child('corpus')->child('fake_dist_01');
+my $source = path("$FindBin::Bin")->parent->child('corpus')->child('fake_dist_01');
 
 my $scratch = Path::Tiny->tempdir;
 use File::Copy::Recursive qw(rcopy);

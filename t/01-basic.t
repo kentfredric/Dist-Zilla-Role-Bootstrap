@@ -32,11 +32,11 @@ my $section = Dist::Zilla::MVP::Assembler::Zilla->new(
   zilla_class   => 'Dist::Zilla::Dist::Builder',
   section_class => 'Dist::Zilla::MVP::Section',
 );
-use Path::FindDev qw( find_dev );
+use FindBin;
 use Path::Tiny qw( path );
 
 my $cwd     = path('./')->absolute;
-my $scratch = find_dev('./')->child('corpus')->child('fake_dist_01');
+my $scratch = path("$FindBin::Bin")->parent->child('corpus')->child('fake_dist_01');
 
 chdir $scratch->stringify;
 
