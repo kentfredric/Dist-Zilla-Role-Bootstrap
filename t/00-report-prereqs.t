@@ -110,7 +110,7 @@ my $static_prereqs = do { my $x = {
                       'requires' => {
                                       'Carp' => '0',
                                       'Dist::Zilla::Role::Plugin' => '0',
-                                      'List::Utils' => '0',
+                                      'List::Util' => '0',
                                       'Moose::Role' => '0',
                                       'MooseX::AttributeShortcuts' => '0.015',
                                       'Path::Tiny' => '0',
@@ -137,7 +137,6 @@ my $static_prereqs = do { my $x = {
                                    'ExtUtils::MakeMaker' => '0',
                                    'File::Copy::Recursive' => '0',
                                    'File::Spec::Functions' => '0',
-                                   'List::Util' => '0',
                                    'Moose' => '0',
                                    'Path::FindDev' => '0',
                                    'Test::More' => '0.89'

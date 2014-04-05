@@ -10,7 +10,7 @@ $Dist::Zilla::Role::Bootstrap::VERSION = '0.002004';
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use Moose::Role qw( with has around );
-use List::Utils qw( max_by nmax_by );
+use List::Util qw( max_by nmax_by );
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
 

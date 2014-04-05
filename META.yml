@@ -10,7 +10,6 @@ build_requires:
   ExtUtils::MakeMaker: '0'
   File::Copy::Recursive: '0'
   File::Spec::Functions: '0'
-  List::Util: '0'
   Moose: '0'
   Path::FindDev: '0'
   Test::More: '0.89'
@@ -30,7 +29,7 @@ provides:
 requires:
   Carp: '0'
   Dist::Zilla::Role::Plugin: '0'
-  List::Utils: '0'
+  List::Util: '0'
   Moose::Role: '0'
   MooseX::AttributeShortcuts: '0.015'
   Path::Tiny: '0'
@@ -46,8 +45,6 @@ resources:
   repository: https://github.com/kentfredric/Dist-Zilla-Role-Bootstrap.git
 version: '0.002004'
 x_BuiltWith:
-  failures:
-    List::Utils: 'module was not found in INC'
   modules:
     CPAN::Meta: '2.140640'
     CPAN::Meta::Requirements: '2.125'
