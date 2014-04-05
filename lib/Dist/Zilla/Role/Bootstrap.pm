@@ -9,8 +9,10 @@ package Dist::Zilla::Role::Bootstrap;
 
 # AUTHORITY
 
-use Moose::Role;
+use Moose::Role qw( with has around requires );
+use List::UtilsBy qw( max_by nmax_by );
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
+use version qw();
 
 =begin MetaPOD::JSON v1.1.0
 
@@ -50,32 +52,6 @@ For users of plugins:
 =cut
 
 with 'Dist::Zilla::Role::Plugin';
-
-=p_func C<_max_by>
-
-Proxy for L<< C<List::UtilsBy::B<max_by>>|List::UtilsBy/max_by >>
-
-=cut
-
-sub _max_by(&@) {
-  no warnings 'redefine';
-  require List::UtilsBy;
-  *_max_by = \&List::UtilsBy::max_by;
-  goto &List::UtilsBy::max_by;
-}
-
-=p_func C<_nmax_by>
-
-Proxy for L<< C<List::UtilsBy::B<nmax_by>>|List::UtilsBy/nmax_by >>
-
-=cut
-
-sub _nmax_by(&@) {
-  no warnings 'redefine';
-  require List::UtilsBy;
-  *_nmax_by = \&List::UtilsBy::nmax_by;
-  goto &List::UtilsBy::nmax_by;
-}
 
 around 'dump_config' => sub {
   my ( $orig, $self, @args ) = @_;
@@ -200,8 +176,8 @@ has try_built_method => (
 =cut
 
 sub _pick_latest_mtime {
-  my ( $self, @candidates ) = @_;
-  return _max_by { $_->stat->mtime } @candidates;
+  my ( undef, @candidates ) = @_;
+  return max_by { $_->stat->mtime } @candidates;
 }
 
 =p_method C<_get_candidate_version>
@@ -220,9 +196,9 @@ sub _get_candidate_version {
   if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
     my $version = $1;
     $version =~ s/-TRIAL\z//msx;
-    require version;
     return version->parse($version);
   }
+
 }
 
 =p_method C<_pick_latest_parseversion>
@@ -235,7 +211,7 @@ sub _get_candidate_version {
 
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
-  return _max_by { $self->_get_candidate_version($_) } @candidates;
+  return max_by { $self->_get_candidate_version($_) } @candidates;
 }
 
 my (%methods) = (
