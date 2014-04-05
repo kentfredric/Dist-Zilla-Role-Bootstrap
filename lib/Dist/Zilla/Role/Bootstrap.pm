@@ -211,7 +211,7 @@ sub _get_candidate_version {
 
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
-  return _max_by { $self->_get_candidate_version($_) } @candidates;
+  return max_by { $self->_get_candidate_version($_) } @candidates;
 }
 
 my (%methods) = (
