@@ -41,12 +41,13 @@ my %WriteMakefileArgs = (
     "ExtUtils::MakeMaker" => 0,
     "File::Copy::Recursive" => 0,
     "File::Spec::Functions" => 0,
+    "FindBin" => 0,
     "List::Util" => 0,
     "Moose" => 0,
     "Path::FindDev" => 0,
     "Test::More" => "0.89"
   },
-  "VERSION" => "1.000000",
+  "VERSION" => "1.000001",
   "test" => {
     "TESTS" => "t/*.t t/00-compile/*.t"
   }
@@ -63,6 +64,7 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Copy::Recursive" => 0,
   "File::Spec::Functions" => 0,
+  "FindBin" => 0,
   "List::Util" => 0,
   "List::UtilsBy" => 0,
   "Moose" => 0,
