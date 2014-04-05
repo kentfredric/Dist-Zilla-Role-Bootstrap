@@ -177,7 +177,7 @@ has try_built_method => (
 
 
 sub _pick_latest_mtime {
-  my ( $self, @candidates ) = @_;
+  my ( undef, @candidates ) = @_;
   return max_by { $_->stat->mtime } @candidates;
 }
 
