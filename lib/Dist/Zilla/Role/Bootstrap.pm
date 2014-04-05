@@ -192,7 +192,7 @@ sub _pick_latest_mtime {
 
 
 sub _get_candidate_version {
-  my ( undef, $candidate ) = @_;
+  my ( $self, $candidate ) = @_;
   my $distname = $self->distname;
   if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
     my $version = $1;
