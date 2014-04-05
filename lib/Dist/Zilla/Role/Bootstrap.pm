@@ -5,6 +5,8 @@ package Dist::Zilla::Role::Bootstrap;
 $Dist::Zilla::Role::Bootstrap::VERSION = '0.002004';
 # ABSTRACT: Shared logic for bootstrap things.
 
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
 use Moose::Role;
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
