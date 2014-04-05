@@ -7,6 +7,8 @@ package Dist::Zilla::Role::Bootstrap;
 
 # ABSTRACT: Shared logic for bootstrap things.
 
+# AUTHORITY
+
 use Moose::Role;
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 
