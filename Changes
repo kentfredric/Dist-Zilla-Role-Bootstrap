@@ -1,6 +1,8 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+
+1.000001 2014-04-05T07:37:23Z
  [00 Test Fixes]
  - Drop dependency on Path::FindDev
 
