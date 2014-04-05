@@ -2,7 +2,7 @@ NAME
     Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 VERSION
-    version 0.2.3
+    version 1.000000
 
 SYNOPSIS
     For consuming plugins:
@@ -80,7 +80,7 @@ ATTRIBUTES
     *   "parseversion" : Attempt to parse versions on all candidate
         directories and use the one with the largest version.
 
-    Prior to 0.2.0 this property did not exist, and default behaviour was to
+    Prior to 0.2.0 this property did not exist, and default behavior was to
     assume "0 Candidates" and "2 or more Candidates" were the same problem.
 
 PRIVATE ATTRIBUTES
@@ -126,18 +126,11 @@ PRIVATE METHODS
 
         $self->_add_inc("$libraryPath");
 
-PRIVATE FUNCTIONS
-  "_max_by"
-    Proxy for "List::UtilsBy::max_by"
-
-  "_nmax_by"
-    Proxy for "List::UtilsBy::nmax_by"
-
 AUTHOR
     Kent Fredric <kentfredric@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Kent Fredric
+    This software is copyright (c) 2014 by Kent Fredric
     <kentfredric@gmail.com>.
 
     This is free software; you can redistribute it and/or modify it under

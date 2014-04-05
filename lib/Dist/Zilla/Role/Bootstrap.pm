@@ -1,58 +1,94 @@
+use 5.008;    # utf8
 use strict;
 use warnings;
+use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
-BEGIN {
-  $Dist::Zilla::Role::Bootstrap::AUTHORITY = 'cpan:KENTNL';
-}
-{
-  $Dist::Zilla::Role::Bootstrap::VERSION = '0.2.3';
-}
-
+$Dist::Zilla::Role::Bootstrap::VERSION = '1.000000';
 # ABSTRACT: Shared logic for bootstrap things.
 
-use Moose::Role;
+our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
+
+use Moose::Role qw( with has around requires );
+use List::UtilsBy qw( max_by nmax_by );
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
+use version qw();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 with 'Dist::Zilla::Role::Plugin';
 
-
-sub _max_by(&@) {
-  no warnings 'redefine';
-  require List::UtilsBy;
-  *_max_by = \&List::UtilsBy::max_by;
-  goto &List::UtilsBy::max_by;
-}
-
-
-sub _nmax_by(&@) {
-  no warnings 'redefine';
-  require List::UtilsBy;
-  *_nmax_by = \&List::UtilsBy::nmax_by;
-  goto &List::UtilsBy::nmax_by;
-}
-
 around 'dump_config' => sub {
   my ( $orig, $self, @args ) = @_;
   my $config    = $self->$orig(@args);
   my $localconf = {};
-  for my $var (qw( try_built try_built_method fallback distname )) {
-    my $pred = 'has_' . $var;
+  for my $attribute (qw( try_built try_built_method fallback distname )) {
+    my $pred = 'has_' . $attribute;
     if ( $self->can($pred) ) {
       next unless $self->$pred();
     }
-    if ( $self->can($var) ) {
-      $localconf->{$var} = $self->$var();
+    if ( $self->can($attribute) ) {
+      $localconf->{$attribute} = $self->$attribute();
     }
   }
+
   $config->{ q{} . __PACKAGE__ } = $localconf;
   return $config;
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+
+
+
 
 
 has _cwd => (
@@ -65,12 +101,39 @@ has _cwd => (
 );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 has try_built => (
   isa     => 'Bool',
   is      => ro =>,
   lazy    => 1,
   builder => sub { return },
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 has fallback => (
@@ -81,6 +144,23 @@ has fallback => (
 );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 has try_built_method => (
   isa     => 'Str',
   is      => ro =>,
@@ -89,10 +169,26 @@ has try_built_method => (
 );
 
 
+
+
+
+
+
+
+
 sub _pick_latest_mtime {
-  my ( $self, @candidates ) = @_;
-  return _max_by { $_->stat->mtime } @candidates;
+  my ( undef, @candidates ) = @_;
+  return max_by { $_->stat->mtime } @candidates;
 }
+
+
+
+
+
+
+
+
+
 
 
 sub _get_candidate_version {
@@ -101,21 +197,35 @@ sub _get_candidate_version {
   if ( $candidate->basename =~ /\A\Q$distname\E-(.+\z)/msx ) {
     my $version = $1;
     $version =~ s/-TRIAL\z//msx;
-    require version;
     return version->parse($version);
   }
+
 }
+
+
+
+
+
+
+
 
 
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
-  return _max_by { $self->_get_candidate_version($_) } @candidates;
+  return max_by { $self->_get_candidate_version($_) } @candidates;
 }
 
 my (%methods) = (
   mtime        => _pick_latest_mtime        =>,
   parseversion => _pick_latest_parseversion =>,
 );
+
+
+
+
+
+
+
 
 
 sub _pick_candidate {
@@ -130,6 +240,15 @@ sub _pick_candidate {
 }
 
 
+
+
+
+
+
+
+
+
+
 has _bootstrap_root => (
   is      => ro =>,
   lazy    => 1,
@@ -142,7 +261,7 @@ has _bootstrap_root => (
 
     my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
 
-    if ( scalar @candidates == 1 ) {
+    if ( 1 == scalar @candidates ) {
       return $candidates[0];
     }
     if ( scalar @candidates < 1 ) {
@@ -163,8 +282,15 @@ has _bootstrap_root => (
 );
 
 
+
+
+
+
+
+
+
 sub _add_inc {
-  my ( $self, $import ) = @_;
+  my ( undef, $import ) = @_;
   if ( not ref $import ) {
     require lib;
     return lib->import($import);
@@ -172,6 +298,17 @@ sub _add_inc {
   require Carp;
   return Carp::croak('At this time, _add_inc(arg) only supports scalar values of arg');
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 requires 'bootstrap';
@@ -202,7 +339,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 0.2.3
+version 1.000000
 
 =head1 SYNOPSIS
 
@@ -290,7 +427,7 @@ Two valid options at this time:
 
 =back
 
-Prior to C<0.2.0> this property did not exist, and default behaviour was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
+Prior to C<0.2.0> this property did not exist, and default behavior was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
 
 =head1 PRIVATE ATTRIBUTES
 
@@ -338,16 +475,6 @@ Internal: Used to perform the final step of injecting library paths into C<@INC>
 
     $self->_add_inc("$libraryPath");
 
-=head1 PRIVATE FUNCTIONS
-
-=head2 C<_max_by>
-
-Proxy for L<< C<List::UtilsBy::B<max_by>>|List::UtilsBy/max_by >>
-
-=head2 C<_nmax_by>
-
-Proxy for L<< C<List::UtilsBy::B<nmax_by>>|List::UtilsBy/nmax_by >>
-
 =begin MetaPOD::JSON v1.1.0
 
 {
@@ -365,7 +492,7 @@ Kent Fredric <kentfredric@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
