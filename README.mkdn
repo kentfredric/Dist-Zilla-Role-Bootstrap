@@ -4,7 +4,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 # VERSION
 
-version 1.000001
+version 1.000002
 
 # SYNOPSIS
 
@@ -34,11 +34,11 @@ For users of plugins:
 
 Any user specified `bootstrap` method will be invoked during `plugin_from_config`.
 
-This is __AFTER__ `->new`, __AFTER__ `->BUILD`, and __AFTER__ `dzil`'s internal `plugin_from_config` steps.
+This is **AFTER** `->new`, **AFTER** `->BUILD`, and **AFTER** `dzil`'s internal `plugin_from_config` steps.
 
 This occurs within the `register_component` phase of the plug-in loading and configuration.
 
-This also occurs __BEFORE__ `Dist::Zilla` attaches the plug-in into the plug-in stash.
+This also occurs **BEFORE** `Dist::Zilla` attaches the plug-in into the plug-in stash.
 
 # ATTRIBUTES
 
@@ -52,13 +52,13 @@ Usually this value is populated by `dist.ini` in the property `name`
 
 However, occasionally, this value is discovered by a `plugin`.
 
-In such a case, that plugin cannot be bootstrapped, because that plugin __MUST__ be loaded prior to bootstrap.
+In such a case, that plugin cannot be bootstrapped, because that plugin **MUST** be loaded prior to bootstrap.
 
 ## `try_built`
 
 This attribute controls how the consuming `plugin` behaves.
 
-- false __(default)__ : bootstrapping is only done to `PROJECTROOT/lib`
+- false **(default)** : bootstrapping is only done to `PROJECTROOT/lib`
 - true : bootstrap attempts to try `PROJECTROOT/<distname>-<version>/lib`
 
 ## `fallback`
@@ -66,7 +66,7 @@ This attribute controls how the consuming `plugin` behaves.
 This attribute is for use in conjunction with `try_built`
 
 - `false` : When `PROJECTROOT/<distname>-<version>` does not exist, don't perform any bootstrapping
-- `true` __(default)__ : When `PROJECTROOT/<distname>-<version>` does not exist, bootstrap to `PROJECTROOT/lib`
+- `true` **(default)** : When `PROJECTROOT/<distname>-<version>` does not exist, bootstrap to `PROJECTROOT/lib`
 
 ## `try_built_method`
 
@@ -74,7 +74,7 @@ This attribute controls how `try_built` behaves when multiple directories exist 
 
 Two valid options at this time:
 
-- `mtime` __(default)__ : Pick the directory with the most recent `mtime`
+- `mtime` **(default)** : Pick the directory with the most recent `mtime`
 - `parseversion` : Attempt to parse versions on all candidate directories and use the one with the largest version.
 
 Prior to `0.2.0` this property did not exist, and default behavior was to assume `0 Candidates` and `2 or more Candidates` were the same problem.
@@ -105,7 +105,7 @@ Attempt to resolve a version from a directory name
 
     my $version = $self->_get_candidate_version($directory_object)
 
-__NOTE:__ At this time, the presence of `-TRIAL` is simply stripped and ignored
+**NOTE:** At this time, the presence of `-TRIAL` is simply stripped and ignored
 
 ## `_pick_latest_parseversion`
 
