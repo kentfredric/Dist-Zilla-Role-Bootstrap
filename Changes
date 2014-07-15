@@ -1,6 +1,9 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+ [00 Trivial]
+ - Minor packaging cleanups.
+
  [Dependencies::Stats]
  - Dependencies changed since 1.000001, see misc/*.deps* for details
  - configure: (recommends: ↑1)
