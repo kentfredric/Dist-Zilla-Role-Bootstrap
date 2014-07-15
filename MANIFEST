@@ -12,6 +12,7 @@ README
 corpus/fake_dist_01/lib/E.pm
 corpus/fake_dist_01/t/placeholder.txt
 dist.ini
+dist.ini.meta
 lib/Dist/Zilla/Role/Bootstrap.pm
 maint/perlcritic.rc.gen.pl
 misc/Changes.deps
