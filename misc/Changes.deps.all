@@ -1,6 +1,29 @@
-1.000001
+This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
+
+1.000002
+ [Changed / configure recommends]
+ - ExtUtils::MakeMaker 6.94 → 6.98
+
+ [Changed / develop requires]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.012002 → 2.016002
+
+ [Changed / test recommends]
+ - ExtUtils::MakeMaker 6.94 → 6.98
+
+1.000001 2014-04-05T07:37:23Z
+ [Added / test requires]
+ - FindBin
+
+ [Removed / test requires]
+ - Path::FindDev
 
 1.000000 2014-04-05T05:29:35Z
+ [Added / configure recommends]
+ - ExtUtils::MakeMaker 6.94
+
+ [Added / configure requires]
+ - ExtUtils::MakeMaker 6.30
+
  [Added / develop requires]
  - Dist::Zilla::Plugin::Git::NextRelease
  - Dist::Zilla::Plugin::Git::NextVersion::Sanitized
@@ -10,8 +33,34 @@
  - Dist::Zilla::Plugin::RunExtraTests
  - Dist::Zilla::Plugin::Test::ReportPrereqs
 
+ [Added / runtime requires]
+ - utf8
+
+ [Added / test recommends]
+ - CPAN::Meta
+ - CPAN::Meta::Requirements 2.120900
+ - ExtUtils::MakeMaker 6.94
+ - Test::More 1.001003
+
+ [Added / test requires]
+ - ExtUtils::MakeMaker
+ - File::Spec::Functions
+ - List::Util
+
  [Changed / develop requires]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.002001 → 2.012002
+
+ [Changed / runtime requires]
+ - perl 5.006 → 5.008
+
+ [Changed / test requires]
+ - Test::More 1.001002 → 0.89
+
+ [Removed / build requires]
+ - Module::Build 0.4200
+
+ [Removed / configure requires]
+ - Module::Build 0.4200
 
  [Removed / develop requires]
  - Dist::Zilla::Plugin::Author::KENTNL::MinimumPerl
@@ -25,6 +74,8 @@
  - version 0.9901
 
 0.2.3 2013-11-18T17:50:53Z
+ [Changed / runtime requires]
+ - MooseX::AttributeShortcuts 0 → 0.015
 
 0.2.2 2013-11-18T04:24:16Z
  [Added / develop requires]
@@ -75,8 +126,20 @@
  [Added / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL::Lite v1.3.0
 
+ [Changed / build requires]
+ - Module::Build 0.4007 → 0.4200
+
+ [Changed / configure requires]
+ - Module::Build 0.4007 → 0.4200
+
  [Changed / develop requires]
  - Test::Kwalitee 1.08 → 1.12
+
+ [Changed / runtime requires]
+ - perl v5.10.0 → 5.006
+
+ [Changed / test requires]
+ - Test::More 0.98 → 1.001002
 
  [Removed / develop recommends]
  - Dist::Zilla::PluginBundle::Author::KENTNL::Lite v1.3.0
@@ -87,7 +150,21 @@
  [Removed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL v1.8.3
 
+ [Removed / test requires]
+ - File::Spec
+ - IO::Handle
+ - IPC::Open3
+
 0.2.1 2013-09-24T02:37:30Z
+ [Removed / runtime requires]
+ - Cwd
 
 0.2.0 2013-09-21T12:39:54Z
+ [Added / runtime requires]
+ - List::UtilsBy
+ - version
+
+ [Added / test requires]
+ - File::Copy::Recursive
+ - File::Spec
 
