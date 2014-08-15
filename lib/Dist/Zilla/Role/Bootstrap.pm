@@ -28,31 +28,6 @@ use version qw();
 
 =cut
 
-=head1 SYNOPSIS
-
-For consuming plugins:
-
-    use Moose;
-    with 'Dist::Zilla::Role::Bootstrap';
-
-    sub bootstrap {
-        my $bootstrap_root = $_[0]->_bootstrap_root;
-        # Do the actual bootstrap work here
-        $_[0]->_add_inc('./some/path/here');
-    }
-
-For users of plugins:
-
-    [Some::Plugin::Name]
-    try_built = 0 ; # use / as the root to bootstrap
-    try_built = 1 ; # try to use /Dist-Name-.*/ instead of /
-
-    fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
-    fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
-
-
-=cut
-
 with 'Dist::Zilla::Role::Plugin';
 
 around 'dump_config' => sub {
@@ -113,7 +88,6 @@ This attribute controls how the consuming C<plugin> behaves.
 =item * true : bootstrap attempts to try C<< PROJECTROOT/<distname>-<version>/lib >>
 
 =back
-
 
 =cut
 
@@ -328,3 +302,27 @@ around plugin_from_config => sub {
 no Moose::Role;
 
 1;
+
+=head1 SYNOPSIS
+
+For consuming plugins:
+
+    use Moose;
+    with 'Dist::Zilla::Role::Bootstrap';
+
+    sub bootstrap {
+        my $bootstrap_root = $_[0]->_bootstrap_root;
+        # Do the actual bootstrap work here
+        $_[0]->_add_inc('./some/path/here');
+    }
+
+For users of plugins:
+
+    [Some::Plugin::Name]
+    try_built = 0 ; # use / as the root to bootstrap
+    try_built = 1 ; # try to use /Dist-Name-.*/ instead of /
+
+    fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
+    fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
+
+=cut

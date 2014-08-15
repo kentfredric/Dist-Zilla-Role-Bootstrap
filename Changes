@@ -5,12 +5,16 @@ Release history for Dist-Zilla-Role-Bootstrap
  - CPANDAY!
  - no code changes.
  - tests augmented.
+ - whitespace adjusted.
 
  [Dependencies::Stats]
  - Dependencies changed since 1.000002, see misc/*.deps* for details
  - configure: ↓1
  - develop: +1 (suggests: ↑1)
  - test: +1 -2 (recommends: ↑1 -1)
+
+ [Misc]
+ - Improve source side POD to reduce build side whitespace.
 
  [Tests]
  - Update ReportPrereqs tests.
