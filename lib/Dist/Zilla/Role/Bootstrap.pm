@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
 
-our $VERSION = '1.000002';
+our $VERSION = '1.000003';
 
 # ABSTRACT: Shared logic for bootstrap things.
 
@@ -15,31 +15,6 @@ use Moose::Role qw( with has around requires );
 use List::UtilsBy qw( max_by nmax_by );
 use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 use version qw();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -101,7 +76,6 @@ has _cwd => (
     return Path::Tiny::path( $_[0]->zilla->root );
   },
 );
-
 
 
 
@@ -341,7 +315,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 1.000002
+version 1.000003
 
 =head1 SYNOPSIS
 
