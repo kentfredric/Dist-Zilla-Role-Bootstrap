@@ -1,12 +1,15 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
-1.000004 2015-01-20T20:01:59Z dc4258b
+1.000004 2015-01-20T20:14:49Z 14039c9
  [Dependencies::Stats]
  - Dependencies changed since 1.000003, see misc/*.deps* for details
  - configure: +1 (recommends: ↑1)
  - develop: +9 ↑3 -2 (recommends: +1, suggests: ↑2)
- - runtime: (recommends: +1)
+ - runtime: -1 (recommends: +1)
  - test: +1 (recommends: +1 ↑1 ↓1)
+
+ [Internals]
+ - Cease use of MX::AttributeShortcuts to remove autobox indirect dependency.
 
  [Meta]
  - Assign author=cpanid
