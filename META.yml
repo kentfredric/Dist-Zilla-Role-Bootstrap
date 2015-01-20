@@ -1,7 +1,7 @@
 ---
 abstract: 'Shared logic for bootstrap things.'
 author:
-  - 'Kent Fredric <kentfredric@cpan.org>'
+  - 'Kent Fredric <kentnl@cpan.org>'
 build_requires:
   Dist::Zilla::Chrome::Test: '0'
   Dist::Zilla::Dist::Builder: '0'
@@ -564,5 +564,3 @@ x_Dist_Zilla:
       is_trial: '0'
     version: '5.031'
 x_authority: cpan:KENTNL
-x_contributors:
-  - 'Kent Fredric <kentnl@cpan.org>'
