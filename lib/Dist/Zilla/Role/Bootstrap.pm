@@ -13,7 +13,6 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use Moose::Role qw( with has around requires );
 use List::UtilsBy qw( max_by nmax_by );
-use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 use version qw();
 
 
@@ -62,41 +61,19 @@ around 'dump_config' => sub {
 
 
 
-has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
+sub _build_distname { $_[0]->zilla->name }
 
 
 
 
 
-has _cwd => (
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub {
-    require Path::Tiny;
-    return Path::Tiny::path( $_[0]->zilla->root );
-  },
-);
+has _cwd => ( is => ro =>, lazy_build => 1, );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-has try_built => (
-  isa     => 'Bool',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return },
-);
+sub _build__cwd {
+  require Path::Tiny;
+  return Path::Tiny::path( $_[0]->zilla->root );
+}
 
 
 
@@ -112,12 +89,25 @@ has try_built => (
 
 
 
-has fallback => (
-  isa     => 'Bool',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return 1 },
-);
+has try_built => ( isa => 'Bool', is => ro =>, lazy_build => 1, );
+sub _build_try_built { return }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+has fallback => ( isa => 'Bool', is => ro =>, lazy_build => 1 );
+sub _build_fallback { return 1 }
 
 
 
@@ -137,12 +127,8 @@ has fallback => (
 
 
 
-has try_built_method => (
-  isa     => 'Str',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return 'mtime' },
-);
+has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
+sub _build_try_built_method { return 'mtime' }
 
 
 
@@ -225,37 +211,34 @@ sub _pick_candidate {
 
 
 
-has _bootstrap_root => (
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub {
-    my ($self) = @_;
-    if ( not $self->try_built ) {
+has _bootstrap_root => ( is => ro =>, lazy_build => 1 );
+
+sub _build__bootstrap_root {
+  my ($self) = @_;
+  if ( not $self->try_built ) {
+    return $self->_cwd;
+  }
+  my $distname = $self->distname;
+
+  my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
+
+  if ( 1 == scalar @candidates ) {
+    return $candidates[0];
+  }
+  if ( scalar @candidates < 1 ) {
+    if ( not $self->fallback ) {
+      $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
+      return;
+    }
+    else {
+      $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
       return $self->_cwd;
     }
-    my $distname = $self->distname;
+  }
 
-    my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
-
-    if ( 1 == scalar @candidates ) {
-      return $candidates[0];
-    }
-    if ( scalar @candidates < 1 ) {
-      if ( not $self->fallback ) {
-        $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
-        return;
-      }
-      else {
-        $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
-        return $self->_cwd;
-      }
-    }
-
-    $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
-    return $self->_pick_candidate(@candidates);
-
-  },
-);
+  $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
+  return $self->_pick_candidate(@candidates);
+}
 
 
 

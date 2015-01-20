@@ -46,7 +46,10 @@ $section->current_section->payload->{name}   = 'Example';
 $section->finalize;
 
 my $instance = Example->plugin_from_config( 'testing', {}, $section );
-
+$instance->distname;
+$instance->fallback;
+$instance->try_built;
+$instance->try_built_method;
 is_deeply(
   $instance->dump_config,
   {
