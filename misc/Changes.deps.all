@@ -47,6 +47,9 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Dist::Zilla::Plugin::EOLTests
  - Dist::Zilla::Plugin::ReadmeFromPod
 
+ [Removed / runtime requires]
+ - MooseX::AttributeShortcuts 0.015
+
 1.000003 2014-08-15T21:30:54Z
  [Added / develop requires]
  - Dist::Zilla::Plugin::Git::Contributors 0.006

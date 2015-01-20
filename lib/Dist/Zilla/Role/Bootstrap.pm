@@ -13,7 +13,6 @@ our $VERSION = '1.000004';
 
 use Moose::Role qw( with has around requires );
 use List::UtilsBy qw( max_by nmax_by );
-use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 use version qw();
 
 =begin MetaPOD::JSON v1.1.0
@@ -62,20 +61,24 @@ In such a case, that plugin cannot be bootstrapped, because that plugin B<MUST> 
 
 =cut
 
-has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
+
+sub _build_distname {
+  my ($self) = @_;
+  return $self->zilla->name;
+}
 
 =p_attr C<_cwd>
 
 =cut
 
-has _cwd => (
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub {
-    require Path::Tiny;
-    return Path::Tiny::path( $_[0]->zilla->root );
-  },
-);
+has _cwd => ( is => ro =>, lazy_build => 1, );
+
+sub _build__cwd {
+  my ($self) = @_;
+  require Path::Tiny;
+  return Path::Tiny::path( $self->zilla->root );
+}
 
 =attr C<try_built>
 
@@ -91,12 +94,8 @@ This attribute controls how the consuming C<plugin> behaves.
 
 =cut
 
-has try_built => (
-  isa     => 'Bool',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return },
-);
+has try_built => ( isa => 'Bool', is => ro =>, lazy_build => 1, );
+sub _build_try_built { return }
 
 =attr C<fallback>
 
@@ -112,12 +111,8 @@ This attribute is for use in conjunction with C<try_built>
 
 =cut
 
-has fallback => (
-  isa     => 'Bool',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return 1 },
-);
+has fallback => ( isa => 'Bool', is => ro =>, lazy_build => 1 );
+sub _build_fallback { return 1 }
 
 =attr C<try_built_method>
 
@@ -137,12 +132,8 @@ Prior to C<0.2.0> this property did not exist, and default behavior was to assum
 
 =cut
 
-has try_built_method => (
-  isa     => 'Str',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return 'mtime' },
-);
+has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
+sub _build_try_built_method { return 'mtime' }
 
 =p_method C<_pick_latest_mtime>
 
@@ -225,37 +216,34 @@ It can also return C<undef> if discovery concludes that no bootstrap can or shou
 
 =cut
 
-has _bootstrap_root => (
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub {
-    my ($self) = @_;
-    if ( not $self->try_built ) {
+has _bootstrap_root => ( is => ro =>, lazy_build => 1 );
+
+sub _build__bootstrap_root {
+  my ($self) = @_;
+  if ( not $self->try_built ) {
+    return $self->_cwd;
+  }
+  my $distname = $self->distname;
+
+  my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
+
+  if ( 1 == scalar @candidates ) {
+    return $candidates[0];
+  }
+  if ( scalar @candidates < 1 ) {
+    if ( not $self->fallback ) {
+      $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
+      return;
+    }
+    else {
+      $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
       return $self->_cwd;
     }
-    my $distname = $self->distname;
+  }
 
-    my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
-
-    if ( 1 == scalar @candidates ) {
-      return $candidates[0];
-    }
-    if ( scalar @candidates < 1 ) {
-      if ( not $self->fallback ) {
-        $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
-        return;
-      }
-      else {
-        $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
-        return $self->_cwd;
-      }
-    }
-
-    $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
-    return $self->_pick_candidate(@candidates);
-
-  },
-);
+  $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
+  return $self->_pick_candidate(@candidates);
+}
 
 =p_method C<_add_inc>
 
