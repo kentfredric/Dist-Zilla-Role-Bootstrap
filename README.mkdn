@@ -127,7 +127,7 @@ Internal: Used to perform the final step of injecting library paths into `@INC`
 
 # AUTHOR
 
-Kent Fredric <kentfredric@gmail.com>
+Kent Fredric <kentnl@cpan.org>
 
 # COPYRIGHT AND LICENSE
 

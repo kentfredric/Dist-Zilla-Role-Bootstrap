@@ -8,6 +8,9 @@ Release history for Dist-Zilla-Role-Bootstrap
  - runtime: (recommends: +1)
  - test: +1 (recommends: +1 ↑1 ↓1)
 
+ [Meta]
+ - Assign author=cpanid
+
 1.000003 2014-08-15T21:30:54Z
  [00 Trivial]
  - CPANDAY!
