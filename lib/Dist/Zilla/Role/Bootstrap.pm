@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
 
-our $VERSION = '1.000004';
+our $VERSION = '1.001001';
 
 # ABSTRACT: Shared logic for bootstrap things.
 
