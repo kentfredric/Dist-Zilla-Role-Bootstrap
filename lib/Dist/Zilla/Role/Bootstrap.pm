@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
 
-our $VERSION = '1.000003';
+our $VERSION = '1.001000';
 
 # ABSTRACT: Shared logic for bootstrap things.
 
@@ -13,7 +13,6 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use Moose::Role qw( with has around requires );
 use List::UtilsBy qw( max_by nmax_by );
-use MooseX::AttributeShortcuts 0.015;    #Min version for builder => sub {}
 use version qw();
 
 
@@ -62,41 +61,24 @@ around 'dump_config' => sub {
 
 
 
-has distname => ( isa => 'Str', is => ro =>, lazy => 1, builder => sub { $_[0]->zilla->name; }, );
+has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
+
+sub _build_distname {
+  my ($self) = @_;
+  return $self->zilla->name;
+}
 
 
 
 
 
-has _cwd => (
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub {
-    require Path::Tiny;
-    return Path::Tiny::path( $_[0]->zilla->root );
-  },
-);
+has _cwd => ( is => ro =>, lazy_build => 1, );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-has try_built => (
-  isa     => 'Bool',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return },
-);
+sub _build__cwd {
+  my ($self) = @_;
+  require Path::Tiny;
+  return Path::Tiny::path( $self->zilla->root );
+}
 
 
 
@@ -112,12 +94,25 @@ has try_built => (
 
 
 
-has fallback => (
-  isa     => 'Bool',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return 1 },
-);
+has try_built => ( isa => 'Bool', is => ro =>, lazy_build => 1, );
+sub _build_try_built { return }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+has fallback => ( isa => 'Bool', is => ro =>, lazy_build => 1 );
+sub _build_fallback { return 1 }
 
 
 
@@ -137,12 +132,8 @@ has fallback => (
 
 
 
-has try_built_method => (
-  isa     => 'Str',
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub { return 'mtime' },
-);
+has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
+sub _build_try_built_method { return 'mtime' }
 
 
 
@@ -225,37 +216,34 @@ sub _pick_candidate {
 
 
 
-has _bootstrap_root => (
-  is      => ro =>,
-  lazy    => 1,
-  builder => sub {
-    my ($self) = @_;
-    if ( not $self->try_built ) {
+has _bootstrap_root => ( is => ro =>, lazy_build => 1 );
+
+sub _build__bootstrap_root {
+  my ($self) = @_;
+  if ( not $self->try_built ) {
+    return $self->_cwd;
+  }
+  my $distname = $self->distname;
+
+  my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
+
+  if ( 1 == scalar @candidates ) {
+    return $candidates[0];
+  }
+  if ( scalar @candidates < 1 ) {
+    if ( not $self->fallback ) {
+      $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
+      return;
+    }
+    else {
+      $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
       return $self->_cwd;
     }
-    my $distname = $self->distname;
+  }
 
-    my (@candidates) = grep { $_->basename =~ /\A\Q$distname\E-/msx } grep { $_->is_dir } $self->_cwd->children;
-
-    if ( 1 == scalar @candidates ) {
-      return $candidates[0];
-    }
-    if ( scalar @candidates < 1 ) {
-      if ( not $self->fallback ) {
-        $self->log( [ 'candidates for bootstrap (%s) == 0, and fallback disabled. not bootstrapping', 0 + @candidates ] );
-        return;
-      }
-      else {
-        $self->log( [ 'candidates for bootstrap (%s) == 0, fallback to boostrapping <distname>/', 0 + @candidates ] );
-        return $self->_cwd;
-      }
-    }
-
-    $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
-    return $self->_pick_candidate(@candidates);
-
-  },
-);
+  $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
+  return $self->_pick_candidate(@candidates);
+}
 
 
 
@@ -315,7 +303,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 1.000003
+version 1.001000
 
 =head1 SYNOPSIS
 
@@ -338,6 +326,38 @@ For users of plugins:
 
     fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
     fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
+
+=head1 DESCRIPTION
+
+This module is a role that aims to be consumed by plugins that want to perform
+some very early bootstrap operation that may affect the loading environment of
+successive plugins, especially with regards to plugins that may wish to build with
+themselves, either by consuming the source tree itself, or by consuming a previous
+built iteration.
+
+Implementation is quite simple:
+
+=over 4
+
+=item 1. C<with> this role in your plugin
+
+  with 'Dist::Zilla::Role::Bootstrap'
+
+=item 2. Implement the C<bootstrap> sub.
+
+  sub bootstrap {
+    my ( $self ) = @_;
+  }
+
+=item 3. I<Optional>: Fetch the discovered C<bootstap> root via:
+
+  $self->_bootstap_root
+
+=item 4. I<Optional>: Load some path into C<@INC> via:
+
+  $self->_add_inc($path)
+
+=back
 
 =head1 REQUIRED METHODS
 
@@ -464,11 +484,11 @@ Internal: Used to perform the final step of injecting library paths into C<@INC>
 
 =head1 AUTHOR
 
-Kent Fredric <kentfredric@gmail.com>
+Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2015 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

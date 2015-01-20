@@ -63,6 +63,10 @@ my $instance = Example->plugin_from_config(
   },
   $section
 );
+$instance->distname;
+$instance->fallback;
+$instance->try_built;
+$instance->try_built_method;
 
 is_deeply(
   $instance->dump_config,
