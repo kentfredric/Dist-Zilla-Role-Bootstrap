@@ -62,7 +62,11 @@ around 'dump_config' => sub {
 
 
 has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
-sub _build_distname { $_[0]->zilla->name }
+
+sub _build_distname {
+  my ($self) = @_;
+  return $self->zilla->name;
+}
 
 
 
@@ -71,8 +75,9 @@ sub _build_distname { $_[0]->zilla->name }
 has _cwd => ( is => ro =>, lazy_build => 1, );
 
 sub _build__cwd {
+  my ($self) = @_;
   require Path::Tiny;
-  return Path::Tiny::path( $_[0]->zilla->root );
+  return Path::Tiny::path( $self->zilla->root );
 }
 
 
