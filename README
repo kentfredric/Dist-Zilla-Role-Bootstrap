@@ -1,6 +1,18 @@
 Dist::Zilla::Role::Bootstrap
 
+This module is a role that aims to be consumed by plugins that want to
+perform some very early bootstrap operation that may affect the loading
+environment of successive plugins, especially with regards to plugins
+that may wish to build with themselves, either by consuming the source
+tree itself, or by consuming a previous built iteration.
 
+Implementation is quite simple:
+
+1. "with" this role in your plugin
+2. Implement the "bootstrap" sub.
+3. *Optional* Fetch the discovered "bootstap" root via
+"$_[0]->_bootstap_root"
+4. *Optional* Load some path into @INC via "$_[0]->_add_inc($path)"
 
 INSTALLATION
 
