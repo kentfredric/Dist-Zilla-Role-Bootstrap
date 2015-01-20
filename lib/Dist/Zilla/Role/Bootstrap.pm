@@ -464,7 +464,7 @@ Internal: Used to perform the final step of injecting library paths into C<@INC>
 
 =head1 AUTHOR
 
-Kent Fredric <kentfredric@gmail.com>
+Kent Fredric <kentfredric@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
