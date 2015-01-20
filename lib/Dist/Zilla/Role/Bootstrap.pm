@@ -343,9 +343,9 @@ Implementation is quite simple:
 
 =item 2. Implement the C<bootstrap> sub.
 
-=item 3. I<Optional> Fetch the discovered C<bootstap> root via C<< $_[0]->_bootstap_root >>
+=item 3. I<Optional>: Fetch the discovered C<bootstap> root via C<< $_[0]->_bootstap_root >>
 
-=item 4. I<Optional> Load some path into C<@INC> via C<< $_[0]->_add_inc($path) >>
+=item 4. I<Optional>: Load some path into C<@INC> via C<< $_[0]->_add_inc($path) >>
 
 =back
 

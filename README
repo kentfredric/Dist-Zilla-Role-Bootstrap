@@ -10,9 +10,9 @@ Implementation is quite simple:
 
 1. "with" this role in your plugin
 2. Implement the "bootstrap" sub.
-3. *Optional* Fetch the discovered "bootstap" root via
+3. *Optional*: Fetch the discovered "bootstap" root via
 "$_[0]->_bootstap_root"
-4. *Optional* Load some path into @INC via "$_[0]->_add_inc($path)"
+4. *Optional*: Load some path into @INC via "$_[0]->_add_inc($path)"
 
 INSTALLATION
 
