@@ -341,7 +341,13 @@ Implementation is quite simple:
 
 =item 1. C<with> this role in your plugin
 
+  with 'Dist::Zilla::Role::Bootstrap'
+
 =item 2. Implement the C<bootstrap> sub.
+
+  sub bootstrap {
+    my ( $self ) = @_;
+  }
 
 =item 3. I<Optional>: Fetch the discovered C<bootstap> root via:
 

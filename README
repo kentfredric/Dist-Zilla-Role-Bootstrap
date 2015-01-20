@@ -9,7 +9,13 @@ tree itself, or by consuming a previous built iteration.
 Implementation is quite simple:
 
 1. "with" this role in your plugin
+      with 'Dist::Zilla::Role::Bootstrap'
+
 2. Implement the "bootstrap" sub.
+      sub bootstrap {
+        my ( $self ) = @_;
+      }
+
 3. *Optional*: Fetch the discovered "bootstap" root via:
       $self->_bootstap_root
 
