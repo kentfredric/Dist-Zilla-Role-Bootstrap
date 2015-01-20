@@ -8,6 +8,9 @@ Release history for Dist-Zilla-Role-Bootstrap
  - runtime: -1 (recommends: +1)
  - test: +1 (recommends: +1 ↑1 ↓1)
 
+ [Documentation]
+ - Furnish a simple DESCRIPTION section for README
+
  [Internals]
  - Cease use of MX::AttributeShortcuts to remove autobox indirect dependency.
 

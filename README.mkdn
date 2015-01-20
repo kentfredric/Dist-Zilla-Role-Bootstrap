@@ -28,6 +28,34 @@ For users of plugins:
     fallback  = 0 ; # don't bootstrap at all if /Dist-Name-.*/ matches != 1 things
     fallback  = 1 ; # fallback to / if /Dist-Name-.*/ matches != 1 things
 
+# DESCRIPTION
+
+This module is a role that aims to be consumed by plugins that want to perform
+some very early bootstrap operation that may affect the loading environment of
+successive plugins, especially with regards to plugins that may wish to build with
+themselves, either by consuming the source tree itself, or by consuming a previous
+built iteration.
+
+Implementation is quite simple:
+
+- 1. `with` this role in your plugin
+
+        with 'Dist::Zilla::Role::Bootstrap'
+
+- 2. Implement the `bootstrap` sub.
+
+        sub bootstrap {
+          my ( $self ) = @_;
+        }
+
+- 3. _Optional_: Fetch the discovered `bootstap` root via:
+
+        $self->_bootstap_root
+
+- 4. _Optional_: Load some path into `@INC` via:
+
+        $self->_add_inc($path)
+
 # REQUIRED METHODS
 
 ## `bootstrap`
