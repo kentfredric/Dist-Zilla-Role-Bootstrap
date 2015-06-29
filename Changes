@@ -1,5 +1,13 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
+1.001001 2015-06-29T09:03:38Z ab79bd2
+ [Bugfix]
+ - Add diagnostics on mtime test to see why it failed.
+
+ [Dependencies::Stats]
+ - Dependencies changed since 1.001000, see misc/*.deps* for details
+ - develop: +1 ↑3 -1 (suggests: ↑2)
+
 1.001000 2015-01-20T20:29:54Z f0042b5
  [Dependencies::Stats]
  - Dependencies changed since 1.000003, see misc/*.deps* for details
@@ -150,4 +158,3 @@ Release history for Dist-Zilla-Role-Bootstrap
 
 0.1.0 2013-09-04T11:24:24Z
  - First version.
-
