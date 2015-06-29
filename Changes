@@ -1,6 +1,8 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+
+1.001001 2015-06-29T09:03:38Z ab79bd2
  [Bugfix]
  - Add diagnostics on mtime test to see why it failed.
 
