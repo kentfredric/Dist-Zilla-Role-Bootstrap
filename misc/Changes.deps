@@ -90,4 +90,3 @@ This file contains changes in REQUIRED dependencies for standard CPAN phases (co
  [Added / test requires]
  - File::Copy::Recursive
  - File::Spec
-
