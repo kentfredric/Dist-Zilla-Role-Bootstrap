@@ -1,6 +1,20 @@
 This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and OPTIONAL )
 
 1.001001
+ [Added / develop requires]
+ - Dist::Zilla::Plugin::MetaYAML::Minimal
+
+ [Changed / develop requires]
+ - Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes 0.001001 → 0.004002
+ - Dist::Zilla::Plugin::Author::KENTNL::TravisCI 0 → 0.001002
+ - Test::More 0 → 0.88
+
+ [Changed / develop suggests]
+ - Dist::Zilla::App::Command::bakeini 0.002000 → 0.002005
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.023002 → 2.024002
+
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::MetaYAML
 
 1.001000 2015-01-20T20:29:54Z
  [Added / develop recommends]
