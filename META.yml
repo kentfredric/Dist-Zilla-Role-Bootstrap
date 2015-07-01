@@ -27,7 +27,7 @@ name: Dist-Zilla-Role-Bootstrap
 provides:
   Dist::Zilla::Role::Bootstrap:
     file: lib/Dist/Zilla/Role/Bootstrap.pm
-    version: '1.001002'
+    version: '1.001003'
 recommends:
   Path::Tiny: '0.058'
 requires:
@@ -46,4 +46,4 @@ resources:
   bugtracker: https://github.com/kentnl/Dist-Zilla-Role-Bootstrap/issues
   homepage: https://github.com/kentnl/Dist-Zilla-Role-Bootstrap
   repository: https://github.com/kentnl/Dist-Zilla-Role-Bootstrap.git
-version: '1.001002'
+version: '1.001003'
