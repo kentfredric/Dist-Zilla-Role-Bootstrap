@@ -1,6 +1,6 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
-1.001002 2015-07-01T03:50:21Z 76807b9
+1.001002 2015-07-01T04:05:24Z 66d4baf
  [Bugfix]
  - Bodge around testers with broken mtime implementations by agressively trying to make files with seperate mtimes and
    then skipping all the tests if that isnt possible, with a grace window of up to 5 seconds to get it right.

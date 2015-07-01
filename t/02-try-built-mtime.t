@@ -54,9 +54,7 @@ for my $scratch_id ( 0 .. $#scratches ) {
   my $sleep_step = 0.3;    # Start intentionally slow to hopefully hit a subsecond transition.
   my $elapsed    = 0.0;
 
-  note "Attempt " . ( $tries + 1 ) . " at creating " . $scratch . " @" . gmtime . "( elapsed: $elapsed )";
-  $scratch->child('lib')->mkpath;
-  while ( $scratch->stat->mtime <= $scratches[ $scratch_id - 1 ]->stat->mtime ) {
+  while ( not -e $scratch or $scratch->stat->mtime <= $scratches[ $scratch_id - 1 ]->stat->mtime ) {
     $tries++;
     if ( $elapsed > 5 ) {
       diag "Your system has a broken clock/filesystem and mtime based tests cant work";
@@ -72,12 +70,12 @@ for my $scratch_id ( 0 .. $#scratches ) {
 
     select( undef, undef, undef, $sleep_step );
     $elapsed += $sleep_step;
-    note "Attempt " . ( $tries + 1 ) . " at creating " . $scratch . " @" . gmtime . "( elapsed: $elapsed )";
-    $scratch->remove_tree();
+    note "Attempt " . ($tries) . " at creating " . $scratch . " @" . (gmtime) . "( elapsed: $elapsed )";
+    $scratch->remove_tree() if -e $scratch;
     $scratch->child('lib')->mkpath;
     $sleep_step = $sleep_step * 2;    # Exponentially larger steps to find clock slew as fast as possible
   }
-  note "Succcess @" . gmtime . "( elapsed: $elapsed )";
+  note "Succcess @" . (gmtime) . "( elapsed: $elapsed )";
 }
 chdir $scratch->stringify;
 
