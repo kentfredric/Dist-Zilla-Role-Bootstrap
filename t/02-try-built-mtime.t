@@ -42,12 +42,43 @@ use File::Copy::Recursive qw(rcopy);
 
 rcopy "$source", "$scratch";
 
-$scratch->child("Example-0.01")->child('lib')->mkpath;
-sleep 2;
-$scratch->child("Example-0.10")->child('lib')->mkpath;
-sleep 2;
-$scratch->child("Example-0.05")->child('lib')->mkpath;
+my (@scratches) = map { $scratch->child( 'Example-' . $_ ) } qw( 0.01 0.10 0.05 );
 
+for my $scratch_id ( 0 .. $#scratches ) {
+  my $scratch = $scratches[$scratch_id];
+  if ( $scratch_id == 0 ) {
+    $scratch->child('lib')->mkpath;
+    next;
+  }
+  my $tries      = 0;
+  my $sleep_step = 0.3;    # Start intentionally slow to hopefully hit a subsecond transition.
+  my $elapsed    = 0.0;
+
+  note "Attempt " . ( $tries + 1 ) . " at creating " . $scratch . " @" . gmtime . "( elapsed: $elapsed )";
+  $scratch->child('lib')->mkpath;
+  while ( $scratch->stat->mtime <= $scratches[ $scratch_id - 1 ]->stat->mtime ) {
+    $tries++;
+    if ( $elapsed > 5 ) {
+      diag "Your system has a broken clock/filesystem and mtime based tests cant work";
+    SKIP: {
+        skip "Broken MTime", 8;
+      }
+      done_testing;
+      exit 0;
+    }
+    if ( $elapsed > 2 ) {
+      diag "mtime looks a bit wonky :/, this test will seem slow";
+    }
+
+    select( undef, undef, undef, $sleep_step );
+    $elapsed += $sleep_step;
+    note "Attempt " . ( $tries + 1 ) . " at creating " . $scratch . " @" . gmtime . "( elapsed: $elapsed )";
+    $scratch->remove_tree();
+    $scratch->child('lib')->mkpath;
+    $sleep_step = $sleep_step * 2;    # Exponentially larger steps to find clock slew as fast as possible
+  }
+  note "Succcess @" . gmtime . "( elapsed: $elapsed )";
+}
 chdir $scratch->stringify;
 
 $section->current_section->payload->{chrome} = $chrome;
@@ -81,14 +112,17 @@ is_deeply(
   'dump_config is expected'
 );
 
-is( $instance->distname,         'Example',          'distname is Example' );
-is( $instance->_cwd->realpath,   $scratch->realpath, 'cwd is project root/' );
-is( $instance->try_built,        1,                  'try_built is on' );
-is( $instance->try_built_method, 'mtime',            'try_built_method is mtime' );
-is( $instance->fallback,         1,                  'fallback is on' );
-is( $instance->_bootstrap_root->realpath, $scratch->child('Example-0.05')->realpath, '_bootstrap_root == _cwd' ) or diag explain [
-  map { { $_->stringify => $_->stat->mtime } } map { $scratch->child("Example-$_") } qw( 0.01 0.10 0.05 )
-];
+is( $instance->distname,                  'Example',                                 'distname is Example' );
+is( $instance->_cwd->realpath,            $scratch->realpath,                        'cwd is project root/' );
+is( $instance->try_built,                 1,                                         'try_built is on' );
+is( $instance->try_built_method,          'mtime',                                   'try_built_method is mtime' );
+is( $instance->fallback,                  1,                                         'fallback is on' );
+is( $instance->_bootstrap_root->realpath, $scratch->child('Example-0.05')->realpath, '_bootstrap_root == _cwd' )
+  or diag explain [
+  map {
+    { $_->stringify => $_->stat->mtime }
+  } @scratches
+  ];
 ok( $instance->can('_add_inc'), '_add_inc method exists' );
 
 chdir $cwd->stringify;
