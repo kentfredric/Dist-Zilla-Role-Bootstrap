@@ -5,12 +5,24 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - English
  - Software::License::Perl_5
 
+ [Changed / configure requires]
+ - perl 5.008 → 5.006
+
  [Changed / develop requires]
  - Dist::Zilla::Plugin::Author::KENTNL::CONTRIBUTING 0.001002 → 0.001003
  - Test::More 0.88 → 0.96
 
  [Changed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.025000 → 2.025010
+
+ [Changed / runtime requires]
+ - perl 5.008 → 5.006
+
+ [Changed / test requires]
+ - perl 5.008 → 5.006
+
+ [Removed / runtime requires]
+ - utf8
 
 1.001002 2015-07-01T04:05:24Z
  [Added / develop requires]
