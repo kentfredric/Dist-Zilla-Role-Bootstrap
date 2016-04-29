@@ -30,19 +30,16 @@ with 'Dist::Zilla::Role::Plugin';
 
 around 'dump_config' => sub {
   my ( $orig, $self, @args ) = @_;
-  my $config    = $self->$orig(@args);
-  my $localconf = {};
-  for my $attribute (qw( try_built try_built_method fallback distname )) {
-    my $pred = 'has_' . $attribute;
-    if ( $self->can($pred) ) {
-      next unless $self->$pred();
-    }
-    if ( $self->can($attribute) ) {
-      $localconf->{$attribute} = $self->$attribute();
-    }
-  }
+  my $config = $self->$orig(@args);
+  my $localconf = $config->{ +__PACKAGE__ } = {};
 
-  $config->{ q{} . __PACKAGE__ } = $localconf;
+  $localconf->{distname}         = $self->distname;
+  $localconf->{try_built}        = $self->try_built;
+  $localconf->{try_built_method} = $self->try_built_method;
+  $localconf->{fallback}         = $self->fallback;
+
+  $localconf->{ q[$] . __PACKAGE__ . '::VERSION' } = $VERSION;
+
   return $config;
 };
 

@@ -1,6 +1,9 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+ - Simplifed MetaConfig generation
+ - $VERSION added to MetaConfig ( This is typically lost due to hiding in roles
+
  [Dependencies::Stats]
  - Dependencies changed since 1.001002, see misc/*.deps* for details
  - configure: ↓1
