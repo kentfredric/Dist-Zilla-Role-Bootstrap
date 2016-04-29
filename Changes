@@ -1,9 +1,12 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
-1.001003 2016-04-29T13:16:08Z b11b9f4
+1.001003 2016-04-29T13:17:56Z c07c858
  [Dependencies::Stats]
  - Dependencies changed since 1.001002, see misc/*.deps* for details
+ - configure: ↓1
  - develop: +2 ↑2 (suggests: ↑1)
+ - runtime: ↓1 -1
+ - test: ↓1
 
 1.001002 2015-07-01T04:05:24Z 66d4baf
  [Bugfix]

@@ -20,7 +20,7 @@
          },
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
-            "perl" : "5.008"
+            "perl" : "5.006"
          }
       },
       "develop" : {
@@ -105,9 +105,8 @@
             "Moose::Role" : "0",
             "Path::Tiny" : "0",
             "lib" : "0",
-            "perl" : "5.008",
+            "perl" : "5.006",
             "strict" : "0",
-            "utf8" : "0",
             "version" : "0",
             "warnings" : "0"
          }
@@ -130,7 +129,7 @@
             "FindBin" : "0",
             "Moose" : "0",
             "Test::More" : "0.89",
-            "perl" : "5.008"
+            "perl" : "5.006"
          }
       }
    },
