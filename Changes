@@ -1,6 +1,8 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
 {{$NEXT}}
+
+1.001003 2016-04-29T22:50:28Z be1b807
  - Simplifed MetaConfig generation
  - $VERSION added to MetaConfig ( This is typically lost due to hiding in roles
 
