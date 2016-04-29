@@ -107,52 +107,6 @@ Two valid options at this time:
 
 Prior to `0.2.0` this property did not exist, and default behavior was to assume `0 Candidates` and `2 or more Candidates` were the same problem.
 
-# PRIVATE ATTRIBUTES
-
-## `_cwd`
-
-## `_bootstrap_root`
-
-Internal: This is the real legwork, and resolves the base directory using the bootstrap resolution protocol.
-
-It should always return a project root of some kind, whether it be a source tree, or built source tree.
-
-It can also return `undef` if discovery concludes that no bootstrap can or should be performed.
-
-# PRIVATE METHODS
-
-## `_pick_latest_mtime`
-
-"Latest" `mtime` candidate selector
-
-    my $directory = $self->_pick_latest_mtime(@directory_objects)
-
-## `_get_candidate_version`
-
-Attempt to resolve a version from a directory name
-
-    my $version = $self->_get_candidate_version($directory_object)
-
-**NOTE:** At this time, the presence of `-TRIAL` is simply stripped and ignored
-
-## `_pick_latest_parseversion`
-
-"Latest" `version` candidate selector
-
-    my $directory = $self->_pick_latest_parseversion(@directory_objects)
-
-## `_pick_candidate`
-
-Pick a directory from a list of candidates using the method described by `try_built_method`
-
-    my $directory = $self->_pick_candidate( @directory_objects );
-
-## `_add_inc`
-
-Internal: Used to perform the final step of injecting library paths into `@INC`
-
-    $self->_add_inc("$libraryPath");
-
 # AUTHOR
 
 Kent Fredric &lt;kentnl@cpan.org>
