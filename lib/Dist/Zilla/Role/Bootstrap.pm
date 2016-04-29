@@ -64,10 +64,6 @@ sub _build_distname {
   return $self->zilla->name;
 }
 
-
-
-
-
 has _cwd => ( is => ro =>, lazy_build => 1, );
 
 sub _build__cwd {
@@ -131,28 +127,10 @@ sub _build_fallback { return 1 }
 has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
 sub _build_try_built_method { return 'mtime' }
 
-
-
-
-
-
-
-
-
 sub _pick_latest_mtime {
   my ( undef, @candidates ) = @_;
   return max_by { $_->stat->mtime } @candidates;
 }
-
-
-
-
-
-
-
-
-
-
 
 sub _get_candidate_version {
   my ( $self, $candidate ) = @_;
@@ -165,14 +143,6 @@ sub _get_candidate_version {
 
 }
 
-
-
-
-
-
-
-
-
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
   return max_by { $self->_get_candidate_version($_) } @candidates;
@@ -182,14 +152,6 @@ my (%methods) = (
   mtime        => _pick_latest_mtime        =>,
   parseversion => _pick_latest_parseversion =>,
 );
-
-
-
-
-
-
-
-
 
 sub _pick_candidate {
   my ( $self, @candidates ) = @_;
@@ -201,16 +163,6 @@ sub _pick_candidate {
   $method = $methods{$method};
   return $self->$method(@candidates);
 }
-
-
-
-
-
-
-
-
-
-
 
 has _bootstrap_root => ( is => ro =>, lazy_build => 1 );
 
@@ -240,14 +192,6 @@ sub _build__bootstrap_root {
   $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
   return $self->_pick_candidate(@candidates);
 }
-
-
-
-
-
-
-
-
 
 sub _add_inc {
   my ( undef, $import ) = @_;
@@ -420,52 +364,6 @@ Two valid options at this time:
 =back
 
 Prior to C<0.2.0> this property did not exist, and default behavior was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
-
-=head1 PRIVATE ATTRIBUTES
-
-=head2 C<_cwd>
-
-=head2 C<_bootstrap_root>
-
-Internal: This is the real legwork, and resolves the base directory using the bootstrap resolution protocol.
-
-It should always return a project root of some kind, whether it be a source tree, or built source tree.
-
-It can also return C<undef> if discovery concludes that no bootstrap can or should be performed.
-
-=head1 PRIVATE METHODS
-
-=head2 C<_pick_latest_mtime>
-
-"Latest" C<mtime> candidate selector
-
-    my $directory = $self->_pick_latest_mtime(@directory_objects)
-
-=head2 C<_get_candidate_version>
-
-Attempt to resolve a version from a directory name
-
-    my $version = $self->_get_candidate_version($directory_object)
-
-B<NOTE:> At this time, the presence of C<-TRIAL> is simply stripped and ignored
-
-=head2 C<_pick_latest_parseversion>
-
-"Latest" C<version> candidate selector
-
-    my $directory = $self->_pick_latest_parseversion(@directory_objects)
-
-=head2 C<_pick_candidate>
-
-Pick a directory from a list of candidates using the method described by C<try_built_method>
-
-    my $directory = $self->_pick_candidate( @directory_objects );
-
-=head2 C<_add_inc>
-
-Internal: Used to perform the final step of injecting library paths into C<@INC>
-
-    $self->_add_inc("$libraryPath");
 
 =begin MetaPOD::JSON v1.1.0
 
