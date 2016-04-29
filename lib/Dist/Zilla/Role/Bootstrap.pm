@@ -59,17 +59,13 @@ around 'dump_config' => sub {
 
 has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
 
-sub _build_distname {
-  my ($self) = @_;
-  return $self->zilla->name;
-}
+sub _build_distname { $_[0]->zilla->name }
 
 has _cwd => ( is => ro =>, lazy_build => 1, );
 
 sub _build__cwd {
-  my ($self) = @_;
   require Path::Tiny;
-  return Path::Tiny::path( $self->zilla->root );
+  return Path::Tiny::path( $_[0]->zilla->root );
 }
 
 
@@ -104,7 +100,7 @@ sub _build_try_built { return }
 
 
 has fallback => ( isa => 'Bool', is => ro =>, lazy_build => 1 );
-sub _build_fallback { return 1 }
+sub _build_fallback { 1 }
 
 
 
@@ -125,7 +121,7 @@ sub _build_fallback { return 1 }
 
 
 has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
-sub _build_try_built_method { return 'mtime' }
+sub _build_try_built_method { 'mtime' }
 
 sub _pick_latest_mtime {
   my ( undef, @candidates ) = @_;
