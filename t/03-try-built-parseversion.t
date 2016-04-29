@@ -71,10 +71,11 @@ is_deeply(
   $instance->dump_config,
   {
     'Dist::Zilla::Role::Bootstrap' => {
-      distname         => 'Example',
-      fallback         => 1,
-      try_built        => 1,
-      try_built_method => 'parseversion',
+      distname                                 => 'Example',
+      fallback                                 => 1,
+      try_built                                => 1,
+      try_built_method                         => 'parseversion',
+      '$Dist::Zilla::Role::Bootstrap::VERSION' => $Dist::Zilla::Role::Bootstrap::VERSION,
     }
   },
   'dump_config is expected'

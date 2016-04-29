@@ -1,5 +1,16 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
+1.001003 2016-04-29T22:50:28Z be1b807
+ - Simplifed MetaConfig generation
+ - $VERSION added to MetaConfig ( This is typically lost due to hiding in roles
+
+ [Dependencies::Stats]
+ - Dependencies changed since 1.001002, see misc/*.deps* for details
+ - configure: ↓1
+ - develop: +2 ↑2 (suggests: ↑1)
+ - runtime: ↓1 -1
+ - test: ↓1
+
 1.001002 2015-07-01T04:05:24Z 66d4baf
  [Bugfix]
  - Bodge around testers with broken mtime implementations by agressively trying to make files with seperate mtimes and

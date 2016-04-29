@@ -13,12 +13,12 @@ build_requires:
   FindBin: '0'
   Moose: '0'
   Test::More: '0.89'
-  perl: '5.008'
+  perl: '5.006'
 configure_requires:
   ExtUtils::MakeMaker: '0'
-  perl: '5.008'
+  perl: '5.006'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.037, CPAN::Meta::Converter version 2.150005'
+generated_by: 'Dist::Zilla version 5.043, CPAN::Meta::Converter version 2.150001'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -27,7 +27,7 @@ name: Dist-Zilla-Role-Bootstrap
 provides:
   Dist::Zilla::Role::Bootstrap:
     file: lib/Dist/Zilla/Role/Bootstrap.pm
-    version: '1.001002'
+    version: '1.001003'
 recommends:
   Path::Tiny: '0.058'
 requires:
@@ -37,13 +37,12 @@ requires:
   Moose::Role: '0'
   Path::Tiny: '0'
   lib: '0'
-  perl: '5.008'
+  perl: '5.006'
   strict: '0'
-  utf8: '0'
   version: '0'
   warnings: '0'
 resources:
   bugtracker: https://github.com/kentnl/Dist-Zilla-Role-Bootstrap/issues
   homepage: https://github.com/kentnl/Dist-Zilla-Role-Bootstrap
   repository: https://github.com/kentnl/Dist-Zilla-Role-Bootstrap.git
-version: '1.001002'
+version: '1.001003'

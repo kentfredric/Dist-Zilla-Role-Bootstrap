@@ -1,11 +1,10 @@
-use 5.008;    # utf8
+use 5.006;    # our
 use strict;
 use warnings;
-use utf8;
 
 package Dist::Zilla::Role::Bootstrap;
 
-our $VERSION = '1.001002';
+our $VERSION = '1.001003';
 
 # ABSTRACT: Shared logic for bootstrap things.
 
@@ -31,19 +30,16 @@ with 'Dist::Zilla::Role::Plugin';
 
 around 'dump_config' => sub {
   my ( $orig, $self, @args ) = @_;
-  my $config    = $self->$orig(@args);
-  my $localconf = {};
-  for my $attribute (qw( try_built try_built_method fallback distname )) {
-    my $pred = 'has_' . $attribute;
-    if ( $self->can($pred) ) {
-      next unless $self->$pred();
-    }
-    if ( $self->can($attribute) ) {
-      $localconf->{$attribute} = $self->$attribute();
-    }
-  }
+  my $config = $self->$orig(@args);
+  my $localconf = $config->{ +__PACKAGE__ } = {};
 
-  $config->{ q{} . __PACKAGE__ } = $localconf;
+  $localconf->{distname}         = $self->distname;
+  $localconf->{try_built}        = $self->try_built;
+  $localconf->{try_built_method} = $self->try_built_method;
+  $localconf->{fallback}         = $self->fallback;
+
+  $localconf->{ q[$] . __PACKAGE__ . '::VERSION' } = $VERSION;
+
   return $config;
 };
 
@@ -63,21 +59,13 @@ around 'dump_config' => sub {
 
 has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
 
-sub _build_distname {
-  my ($self) = @_;
-  return $self->zilla->name;
-}
-
-
-
-
+sub _build_distname { $_[0]->zilla->name }
 
 has _cwd => ( is => ro =>, lazy_build => 1, );
 
 sub _build__cwd {
-  my ($self) = @_;
   require Path::Tiny;
-  return Path::Tiny::path( $self->zilla->root );
+  return Path::Tiny::path( $_[0]->zilla->root );
 }
 
 
@@ -112,7 +100,7 @@ sub _build_try_built { return }
 
 
 has fallback => ( isa => 'Bool', is => ro =>, lazy_build => 1 );
-sub _build_fallback { return 1 }
+sub _build_fallback { 1 }
 
 
 
@@ -133,30 +121,12 @@ sub _build_fallback { return 1 }
 
 
 has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
-sub _build_try_built_method { return 'mtime' }
-
-
-
-
-
-
-
-
+sub _build_try_built_method { 'mtime' }
 
 sub _pick_latest_mtime {
   my ( undef, @candidates ) = @_;
   return max_by { $_->stat->mtime } @candidates;
 }
-
-
-
-
-
-
-
-
-
-
 
 sub _get_candidate_version {
   my ( $self, $candidate ) = @_;
@@ -169,14 +139,6 @@ sub _get_candidate_version {
 
 }
 
-
-
-
-
-
-
-
-
 sub _pick_latest_parseversion {
   my ( $self, @candidates ) = @_;
   return max_by { $self->_get_candidate_version($_) } @candidates;
@@ -186,14 +148,6 @@ my (%methods) = (
   mtime        => _pick_latest_mtime        =>,
   parseversion => _pick_latest_parseversion =>,
 );
-
-
-
-
-
-
-
-
 
 sub _pick_candidate {
   my ( $self, @candidates ) = @_;
@@ -205,16 +159,6 @@ sub _pick_candidate {
   $method = $methods{$method};
   return $self->$method(@candidates);
 }
-
-
-
-
-
-
-
-
-
-
 
 has _bootstrap_root => ( is => ro =>, lazy_build => 1 );
 
@@ -244,14 +188,6 @@ sub _build__bootstrap_root {
   $self->log_debug( [ '>1 candidates, picking one by method %s', $self->try_built_method ] );
   return $self->_pick_candidate(@candidates);
 }
-
-
-
-
-
-
-
-
 
 sub _add_inc {
   my ( undef, $import ) = @_;
@@ -303,7 +239,7 @@ Dist::Zilla::Role::Bootstrap - Shared logic for bootstrap things.
 
 =head1 VERSION
 
-version 1.001002
+version 1.001003
 
 =head1 SYNOPSIS
 
@@ -425,52 +361,6 @@ Two valid options at this time:
 
 Prior to C<0.2.0> this property did not exist, and default behavior was to assume C<0 Candidates> and C<2 or more Candidates> were the same problem.
 
-=head1 PRIVATE ATTRIBUTES
-
-=head2 C<_cwd>
-
-=head2 C<_bootstrap_root>
-
-Internal: This is the real legwork, and resolves the base directory using the bootstrap resolution protocol.
-
-It should always return a project root of some kind, whether it be a source tree, or built source tree.
-
-It can also return C<undef> if discovery concludes that no bootstrap can or should be performed.
-
-=head1 PRIVATE METHODS
-
-=head2 C<_pick_latest_mtime>
-
-"Latest" C<mtime> candidate selector
-
-    my $directory = $self->_pick_latest_mtime(@directory_objects)
-
-=head2 C<_get_candidate_version>
-
-Attempt to resolve a version from a directory name
-
-    my $version = $self->_get_candidate_version($directory_object)
-
-B<NOTE:> At this time, the presence of C<-TRIAL> is simply stripped and ignored
-
-=head2 C<_pick_latest_parseversion>
-
-"Latest" C<version> candidate selector
-
-    my $directory = $self->_pick_latest_parseversion(@directory_objects)
-
-=head2 C<_pick_candidate>
-
-Pick a directory from a list of candidates using the method described by C<try_built_method>
-
-    my $directory = $self->_pick_candidate( @directory_objects );
-
-=head2 C<_add_inc>
-
-Internal: Used to perform the final step of injecting library paths into C<@INC>
-
-    $self->_add_inc("$libraryPath");
-
 =begin MetaPOD::JSON v1.1.0
 
 {
@@ -488,7 +378,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2016 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
