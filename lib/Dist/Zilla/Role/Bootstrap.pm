@@ -59,17 +59,13 @@ In such a case, that plugin cannot be bootstrapped, because that plugin B<MUST> 
 
 has distname => ( isa => 'Str', is => ro =>, lazy_build => 1 );
 
-sub _build_distname {
-  my ($self) = @_;
-  return $self->zilla->name;
-}
+sub _build_distname { $_[0]->zilla->name }
 
 has _cwd => ( is => ro =>, lazy_build => 1, );
 
 sub _build__cwd {
-  my ($self) = @_;
   require Path::Tiny;
-  return Path::Tiny::path( $self->zilla->root );
+  return Path::Tiny::path( $_[0]->zilla->root );
 }
 
 =attr C<try_built>
@@ -104,7 +100,7 @@ This attribute is for use in conjunction with C<try_built>
 =cut
 
 has fallback => ( isa => 'Bool', is => ro =>, lazy_build => 1 );
-sub _build_fallback { return 1 }
+sub _build_fallback { 1 }
 
 =attr C<try_built_method>
 
@@ -125,7 +121,7 @@ Prior to C<0.2.0> this property did not exist, and default behavior was to assum
 =cut
 
 has try_built_method => ( isa => 'Str', is => ro =>, lazy_build => 1, );
-sub _build_try_built_method { return 'mtime' }
+sub _build_try_built_method { 'mtime' }
 
 sub _pick_latest_mtime {
   my ( undef, @candidates ) = @_;
