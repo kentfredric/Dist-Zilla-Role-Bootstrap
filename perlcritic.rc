@@ -159,7 +159,7 @@ spell_command = aspell list --lang en_US
 
 [Documentation::RequirePodAtEnd]
 
-[Documentation::RequirePodLinksIncludeText]
+[-Documentation::RequirePodLinksIncludeText]
 
 [-Documentation::RequirePodSections]
 
@@ -316,7 +316,7 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [Subroutines::ProhibitExcessComplexity]
 
-[Subroutines::ProhibitExplicitReturnUndef]
+[-Subroutines::ProhibitExplicitReturnUndef]
 
 [Subroutines::ProhibitExportingUndeclaredSubs]
 
