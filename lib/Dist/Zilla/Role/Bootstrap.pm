@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::Role::Bootstrap;
 
-our $VERSION = '1.001004';
+our $VERSION = '1.001005';
 
 # ABSTRACT: Shared logic for bootstrap things.
 
