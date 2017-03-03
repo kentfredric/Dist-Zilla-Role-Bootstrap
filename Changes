@@ -1,5 +1,7 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
+1.001005 2017-03-03T07:16:59Z c802df2
+
 1.001004 2017-03-03T07:00:55Z 934c2a5
  [Bugfix]
  - Avoid test failures on 5.26 w/ -Ddefault_inc_excludes_dot
