@@ -1,6 +1,14 @@
 Release history for Dist-Zilla-Role-Bootstrap
 
-1.001004 2016-04-29T23:00:51Z 1d5f5b3
+1.001004 2017-03-03T07:00:55Z 934c2a5
+ [Bugfix]
+ - Avoid test failures on 5.26 w/ -Ddefault_inc_excludes_dot
+ - Closes https://github.com/kentnl/Dist-Zilla-Role-Bootstrap/issues/2
+
+ [Dependencies::Stats]
+ - Dependencies changed since 1.001003, see misc/*.deps* for details
+ - develop: +1 ↑1 (suggests: ↑1)
+ - test: ↓1
 
 1.001003 2016-04-29T22:50:28Z be1b807
  - Simplifed MetaConfig generation
