@@ -271,9 +271,9 @@ Implementation is quite simple:
     my ( $self ) = @_;
   }
 
-=item 3. I<Optional>: Fetch the discovered C<bootstap> root via:
+=item 3. I<Optional>: Fetch the discovered C<bootstrap> root via:
 
-  $self->_bootstap_root
+  $self->_bootstrap_root
 
 =item 4. I<Optional>: Load some path into C<@INC> via:
 
